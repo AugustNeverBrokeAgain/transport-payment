@@ -42,10 +42,8 @@
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       margin-bottom: 30px;
       display: inline-block;
-    }
-
-    #transportSelection input[type="radio"] {
-      display: none; /* Скрываем стандартные радиокнопки */
+      width: 100%;
+      max-width: 600px;
     }
 
     #transportSelection label {
@@ -103,7 +101,29 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    /* Стили для кнопок */
+    /* Для радиокнопок с контейнером */
+    #transportSelection .radio-container {
+      display: flex;
+      justify-content: space-around; /* Отцентрируем элементы по горизонтали */
+      flex-wrap: wrap; /* Оставим возможность для переноса на новую строку на маленьких экранах */
+    }
+
+    #transportSelection input[type="radio"] {
+      display: none; /* Скрываем стандартные радиокнопки */
+    }
+
+    #transportSelection label {
+      font-size: 18px;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 6px;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      cursor: pointer;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    /* Кнопки */
     button {
       padding: 12px 24px;
       font-size: 18px;
@@ -126,52 +146,6 @@
       box-shadow: none;
     }
 
-    #reader {
-      width: 80vw;
-      height: 80vw;
-      max-width: 600px;
-      max-height: 600px;
-      margin: 20px auto;
-      border: 3px solid #1d3557;
-      display: none;
-    }
-
-    #animation {
-      display: none;
-      margin-top: 20px;
-      font-size: 24px;
-      font-weight: bold;
-      color: #4CAF50;
-      animation: fadeIn 2s ease-out;
-    }
-
-    @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-
-    #paymentDetails {
-      margin-top: 20px;
-      font-size: 20px;
-      color: #333;
-    }
-
-    #getReceiptButton {
-      margin-top: 20px;
-      padding: 12px 20px;
-      font-size: 18px;
-      background-color: #e63946;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    #getReceiptButton:hover {
-      background-color: #f1faee;
-      color: #e63946;
-    }
   </style>
 </head>
 <body>
@@ -182,11 +156,18 @@
 
   <div id="transportSelection">
     <label>Выберите транспорт:</label><br>
-    <input type="radio" name="transport" value="Трамвай" id="tram" /> <label for="tram">Трамвай</label>
-    <input type="radio" name="transport" value="Троллейбус" id="trolleybus" /> <label for="trolleybus">Троллейбус</label>
-    <input type="radio" name="transport" value="Автобус" id="bus" /> <label for="bus">Автобус</label>
+    <div class="radio-container">
+      <input type="radio" name="transport" value="Трамвай" id="tram" /> 
+      <label for="tram">Трамвай</label>
+      
+      <input type="radio" name="transport" value="Троллейбус" id="trolleybus" /> 
+      <label for="trolleybus">Троллейбус</label>
+      
+      <input type="radio" name="transport" value="Автобус" id="bus" /> 
+      <label for="bus">Автобус</label>
+    </div>
     <br><br>
-    <label for="number">Введите номер:</label>
+    <label for="number"><b>Введите номер:</b></label>
     <input type="number" id="number" placeholder="Номер" />
     <br><br>
     <button id="confirmButton">Подтвердить</button>
@@ -273,5 +254,6 @@
       alert('Справка будет отправлена на ваш email.');
     });
   </script>
+
 </body>
 </html>
