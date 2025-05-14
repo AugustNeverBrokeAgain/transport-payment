@@ -3,117 +3,127 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Оплата проезда</title>
+  <title>QR-Scanner</title>
+  
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
     body {
       font-family: 'Roboto', sans-serif;
       background-color: #f8f9fa;
-      color: #1c1c1c;
+      color: #333;
       text-align: center;
-      padding: 0;
+      padding: 30px;
       margin: 0;
     }
 
-    /* Обложка */
+    /* Обложка с картинкой вверху */
     #header {
       width: 100%;
-      height: 18vh;
-      background: url('BANK.png') center/contain no-repeat;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      font-size: 24px;
-      font-weight: 500;
-      margin-bottom: 20px;
-    }
-
-    /* Контейнер для формы выбора */
-    .form-container {
-      background-color: #ffffff;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin: 0 auto;
-      width: 90%;
-      max-width: 600px; /* Ограничение ширины */
-    }
-
-    #transportSelection {
+      height: 20vh; /* Ограничиваем высоту на 20% от высоты экрана */
+      background-image: url('BANK.png'); /* Указываем путь к картинке */
+      background-size: contain; /* Масштабируем картинку с сохранением пропорций */
+      background-position: center;
+      background-repeat: no-repeat;
       margin-bottom: 30px;
     }
 
-    #transportSelection label.title {
-      display: block;
-      margin-bottom: 12px;
-      font-weight: 500;
-      font-size: 16px;
+    h1 {
+      color: #1d3557;
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 40px;
     }
 
-    /* Радиокнопки в столбец */
-    .radio-group {
-      display: flex;
-      flex-direction: column; /* Радиокнопки в один столбец */
-      gap: 15px;
-      align-items: flex-start;
+    #transportSelection {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+      display: inline-block;
     }
 
-    /* Скрыть оригинальные радиоэлементы */
-    .radio-group input[type="radio"] {
-      display: none;
+    #transportSelection input[type="radio"] {
+      display: none; /* Скрываем стандартные радиокнопки */
     }
 
-    /* Стили кастомных радиокнопок */
-    .radio-option {
-      padding: 10px 20px;
-      font-size: 18px; /* Увеличен размер */
-      border-radius: 16px;
-      background-color: #eeeeee;
-      border: 1px solid #ccc;
+    #transportSelection label {
+      font-size: 18px;
+      margin-right: 20px;
       cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 6px;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
       transition: background-color 0.3s, border-color 0.3s;
     }
 
-    .radio-group input[type="radio"]:checked + .radio-option {
+    #transportSelection input[type="radio"]:checked + label {
       background-color: #ffcc00;
+      border-color: #ffcc00;
       color: #000;
+    }
+
+    #transportSelection input[type="radio"]:hover + label {
+      background-color: #f8f9fa;
       border-color: #ffcc00;
     }
 
-    .radio-option:hover {
-      background-color: #eaeaea;
-    }
-
-    input[type="number"] {
-      padding: 10px 12px;
-      border-radius: 6px;
-      border: none;
-      background-color: #f1f1f1;
-      font-weight: 500;
-      font-size: 15px;
-      width: 140px;
-      margin-top: 20px;
+    #transportSelection input[type="radio"]:focus + label {
       outline: none;
+      box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
     }
 
-    button {
-      padding: 10px 24px;
-      margin-top: 20px;
+    #transportSelection input[type="radio"]:checked + label {
+      background-color: #ffcc00;
+      color: black;
+    }
+
+    #transportSelection input[type="radio"]:checked + label:hover {
+      background-color: #e6b800;
+    }
+
+    #transportSelection input[type="radio"]:checked + label:active {
+      background-color: #cc9e00;
+    }
+
+    #transportSelection input, #transportSelection button {
+      margin: 12px;
+      padding: 12px;
       font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    #transportSelection input:hover, #transportSelection button:hover {
+      border-color: #ffcc00;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Стили для кнопок */
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
       background-color: #ffcc00;
       color: #000;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, transform 0.3s ease;
     }
 
     button:hover {
       background-color: #e6b800;
-      transform: scale(1.03);
+      transform: scale(1.05);
+    }
+
+    button:active {
+      background-color: #cc9e00;
+      box-shadow: none;
     }
 
     #reader {
@@ -122,65 +132,64 @@
       max-width: 600px;
       max-height: 600px;
       margin: 20px auto;
+      border: 3px solid #1d3557;
       display: none;
-      border: 2px solid #000;
     }
 
     #animation {
       display: none;
-      margin-top: 30px;
+      margin-top: 20px;
       font-size: 24px;
       font-weight: bold;
       color: #4CAF50;
-      animation: fadeIn 1.5s ease-out;
+      animation: fadeIn 2s ease-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      0% { opacity: 0; }
+      100% { opacity: 1; }
     }
 
     #paymentDetails {
-      margin-top: 12px;
-      font-size: 16px;
-      font-weight: 500;
+      margin-top: 20px;
+      font-size: 20px;
+      color: #333;
     }
 
     #getReceiptButton {
       margin-top: 20px;
+      padding: 12px 20px;
+      font-size: 18px;
       background-color: #e63946;
-      color: #fff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     #getReceiptButton:hover {
-      background-color: #c92c3a;
+      background-color: #f1faee;
+      color: #e63946;
     }
   </style>
 </head>
 <body>
 
-  <div id="header"></div>
+  <div id="header"></div> <!-- Заголовок с изображением -->
 
-  <h1>Оплата проезда</h1>
+  <h1>Оплата за проезд</h1>
 
-  <div class="form-container">
-    <div id="transportSelection">
-      <label class="title">Выберите транспорт:</label>
-      <div class="radio-group">
-        <input type="radio" name="transport" value="Трамвай" id="tram">
-        <label for="tram" class="radio-option">Трамвай</label>
-
-        <input type="radio" name="transport" value="Троллейбус" id="trolleybus">
-        <label for="trolleybus" class="radio-option">Троллейбус</label>
-
-        <input type="radio" name="transport" value="Автобус" id="bus">
-        <label for="bus" class="radio-option">Автобус</label>
-      </div>
-
-      <input type="number" id="number" placeholder="Введите номер">
-      <br>
-      <button id="confirmButton">Подтвердить</button>
-    </div>
+  <div id="transportSelection">
+    <label>Выберите транспорт:</label><br>
+    <input type="radio" name="transport" value="Трамвай" id="tram" /> <label for="tram">Трамвай</label>
+    <input type="radio" name="transport" value="Троллейбус" id="trolleybus" /> <label for="trolleybus">Троллейбус</label>
+    <input type="radio" name="transport" value="Автобус" id="bus" /> <label for="bus">Автобус</label>
+    <br><br>
+    <label for="number">Введите номер:</label>
+    <input type="number" id="number" placeholder="Номер" />
+    <br><br>
+    <button id="confirmButton">Подтвердить</button>
   </div>
 
   <div id="reader"></div>
@@ -197,12 +206,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
   <script>
     const confirmButton = document.getElementById('confirmButton');
+    const transportSelection = document.getElementById('transportSelection');
     const scanButton = document.getElementById('scanButton');
     const reader = document.getElementById('reader');
     const animation = document.getElementById('animation');
     const paymentDetails = document.getElementById('paymentDetails');
     const getReceiptButton = document.getElementById('getReceiptButton');
-    const transportSelection = document.getElementById('transportSelection');
+
     let selectedTransport = '';
     let enteredNumber = '';
     let html5QrCode;
@@ -219,33 +229,44 @@
       selectedTransport = transport.value;
       transportSelection.style.display = 'none';
       scanButton.style.display = 'inline';
+      console.log(`Вы выбрали: ${selectedTransport} №${enteredNumber}`);
     });
 
     scanButton.addEventListener('click', () => {
-      html5QrCode = new Html5Qrcode("reader");
+      scanButton.style.display = 'none';
       reader.style.display = 'block';
+
+      html5QrCode = new Html5Qrcode("reader");
+
       html5QrCode.start(
         { facingMode: "environment" },
-        { fps: 15, qrbox: 250 },
-        onScanSuccess,
-        () => {}
-      );
+        {
+          fps: 10,
+          qrbox: { width: 300, height: 300 }
+        },
+        (decodedText, decodedResult) => {
+          console.log("QR-код распознан:", decodedText);
+          stopScannerAndShowAnimation();
+        },
+        (error) => {
+          // Ошибки игнорируем
+        }
+      ).catch(err => {
+        console.error("Ошибка запуска сканера:", err);
+      });
 
       setTimeout(() => {
         stopScannerAndShowAnimation();
       }, 10000);
     });
 
-    function onScanSuccess(decodedText, decodedResult) {
-      html5QrCode.stop();
-      stopScannerAndShowAnimation();
-    }
-
     function stopScannerAndShowAnimation() {
-      reader.style.display = 'none';
-      animation.style.display = 'block';
-      paymentDetails.innerHTML = `<p>${selectedTransport} №${enteredNumber}</p>`;
-      getReceiptButton.style.display = 'inline';
+      html5QrCode.stop().then(() => {
+        reader.style.display = 'none';
+        animation.style.display = 'block';
+        paymentDetails.innerHTML = `<p>${selectedTransport} №${enteredNumber}</p>`;
+        getReceiptButton.style.display = 'inline';
+      });
     }
 
     getReceiptButton.addEventListener('click', () => {
