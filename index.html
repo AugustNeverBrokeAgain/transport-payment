@@ -15,6 +15,18 @@
       color: #333; /* Темный текст */
       text-align: center;
       padding: 30px;
+      margin: 0;
+    }
+
+    /* Обложка с картинкой вверху */
+    #header {
+      width: 100%;
+      height: 250px; /* Задаем высоту */
+      background-image: url('BANK.png'); /* Указываем путь к картинке */
+      background-size: cover; /* Масштабируем картинку */
+      background-position: center; /* Центрируем картинку */
+      background-repeat: no-repeat; /* Запрещаем повторение картинки */
+      margin-bottom: 30px; /* Отступ снизу */
     }
 
     h1 {
@@ -120,6 +132,8 @@
   </style>
 </head>
 <body>
+
+  <div id="header"></div> <!-- Заголовок с изображением -->
 
   <h1>Оплата за проезд</h1>
 
