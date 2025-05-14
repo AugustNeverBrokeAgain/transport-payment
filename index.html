@@ -4,37 +4,48 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>QR-Scanner</title>
+  
+  <!-- Подключаем шрифт из Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5; /* Легкий серый фон */
-      color: #333; /* Темно-серый текст */
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa; /* Светлый фон */
+      color: #333; /* Темный текст */
       text-align: center;
-      padding: 20px;
+      padding: 30px;
     }
 
     h1 {
-      color: #1d3557; /* Темно-синий для заголовка */
-      font-size: 30px;
-      font-weight: bold;
+      color: #1d3557; /* Темно-синий цвет */
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 40px;
     }
 
     #transportSelection {
       background-color: #ffffff;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
       display: inline-block;
     }
 
     #transportSelection input, #transportSelection button {
-      margin: 10px;
-      padding: 10px;
+      margin: 12px;
+      padding: 12px;
       font-size: 16px;
-      border-radius: 5px;
-      border: 1px solid #ddd;
+      border-radius: 6px;
+      border: 1px solid #ccc;
       outline: none;
+      transition: all 0.3s ease;
+    }
+
+    #transportSelection input:hover, #transportSelection button:hover {
+      border-color: #ffcc00; /* Желтая рамка при наведении */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
     /* Стили для кнопок */
@@ -43,20 +54,20 @@
       font-size: 18px;
       background-color: #ffcc00; /* Желтый цвет */
       color: #000; /* Черный текст */
-      border: 2px solid #1d3557; /* Темная рамка */
-      border-radius: 5px;
+      border: none;
+      border-radius: 6px;
       cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень для кнопок */
-      transition: background-color 0.3s, box-shadow 0.3s; /* Плавные переходы */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s, transform 0.3s ease;
     }
 
     button:hover {
-      background-color: #e6b800; /* Темно-желтый при наведении */
-      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Увеличенная тень */
+      background-color: #e6b800; /* Темный желтый при наведении */
+      transform: scale(1.05); /* Легкое увеличение кнопки при наведении */
     }
 
     button:active {
-      background-color: #cc9e00; /* При нажатии кнопка темнеет */
+      background-color: #cc9e00; /* Темный желтый при нажатии */
       box-shadow: none; /* Убираем тень при нажатии */
     }
 
@@ -87,21 +98,24 @@
     #paymentDetails {
       margin-top: 20px;
       font-size: 20px;
+      color: #333;
     }
 
     #getReceiptButton {
       margin-top: 20px;
-      padding: 10px 20px;
+      padding: 12px 20px;
       font-size: 18px;
       background-color: #e63946; /* Красный цвет */
       color: white;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
 
     #getReceiptButton:hover {
-      background-color: #f1faee; /* Белый при наведении */
+      background-color: #f1faee; /* Светлый цвет при наведении */
+      color: #e63946;
     }
   </style>
 </head>
