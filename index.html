@@ -69,6 +69,7 @@
     const paymentStatus = document.getElementById("paymentStatus");
 
     let html5QrCode;
+    let scanAttempts = 0; // Счётчик попыток сканирования
 
     // Функция для показа анимации
     function showAnimation() {
@@ -100,7 +101,15 @@
     // Функция ошибки сканирования
     function onScanFailure(error) {
       console.warn(`Ошибка сканирования: ${error}`);
-      alert("Ошибка сканирования, попробуйте снова.");
+      scanAttempts++;
+
+      // Если сканирование не удается после нескольких попыток, показываем сообщение
+      if (scanAttempts > 5) {
+        alert("Не удается распознать QR код, попробуйте снова.");
+        stopScanner();
+      } else {
+        console.log(`Попытка сканирования № ${scanAttempts}`);
+      }
     }
 
     // Функция для остановки сканера
