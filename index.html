@@ -49,4 +49,154 @@
       width: 100px;
       height: 100px;
       background-color: yellow;
-      border-radius: 50
+      border-radius: 50%;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      animation: fadeInCircle 1s forwards;
+    }
+    @keyframes fadeInCircle {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    #checkmark {
+      font-size: 50px;
+      color: green;
+      position: absolute;
+      opacity: 0;
+      animation: checkmarkAnimation 2s forwards;
+    }
+    @keyframes checkmarkAnimation {
+      0% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    #price {
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    #successMessage {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    #getReceiptButton {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #getReceiptButton:hover {
+      background-color: #45a049;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Сканирование QR-кода</h1>
+  <button id="scanButton">Сканировать QR-код</button>
+
+  <div id="reader"></div>
+
+  <!-- Модальное окно -->
+  <div id="modal">
+    <div id="modalContent">
+      <div id="yellowCircle">
+        <div id="checkmark">✔</div>
+      </div>
+      <div id="price">29₽</div>
+      <div id="successMessage">Оплата прошла успешно!</div>
+      <button id="getReceiptButton">Получить справку</button>
+    </div>
+  </div>
+
+  <!-- Подключение библиотеки -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+
+  <script>
+    const scanButton = document.getElementById("scanButton");
+    const reader = document.getElementById("reader");
+    const modal = document.getElementById("modal");
+    const getReceiptButton = document.getElementById("getReceiptButton");
+
+    // Функция успешного сканирования
+    function onScanSuccess(decodedText, decodedResult) {
+      console.log(`QR-код распознан: ${decodedText}`);
+      
+      // Останавливаем сканер
+      html5QrCode.stop().then(() => {
+        // Останавливаем камеру, скрываем сканер и показываем модальное окно
+        scanButton.style.display = 'none'; // Скрыть кнопку
+        showModal(); // Показываем модальное окно
+      }).catch((err) => {
+        console.error("Ошибка при остановке сканера:", err);
+      });
+    }
+
+    // Функция ошибки сканирования
+    function onScanFailure(error) {
+      console.warn(`Ошибка сканирования: ${error}`);
+    }
+
+    // Функция для показа модального окна
+    function showModal() {
+      modal.style.display = 'flex';
+
+      // Запускаем анимацию желтого круга и галочки
+      const yellowCircle = document.getElementById("yellowCircle");
+      const checkmark = document.getElementById("checkmark");
+
+      yellowCircle.style.animation = 'fadeInCircle 1s forwards';
+      setTimeout(() => {
+        checkmark.style.animation = 'checkmarkAnimation 2s forwards';
+      }, 500); // Немного задерживаем появление галочки
+
+      // Выводим цену и сообщение
+      setTimeout(() => {
+        document.getElementById("price").style.opacity = 1;
+        document.getElementById("successMessage").style.opacity = 1;
+      }, 2500); // Появление текста после анимации галочки
+    }
+
+    // Запуск сканера по нажатию кнопки
+    scanButton.addEventListener("click", () => {
+      const html5QrCode = new Html5Qrcode("reader");
+
+      html5QrCode.start(
+        { facingMode: "environment" }, // Используем камеру сзади
+        {
+          fps: 15, // Сканировать 15 раз в секунду
+          qrbox: { width: "80vw", height: "80vw" }, // 80% от ширины экрана, с сохранением квадратной формы
+          aspectRatio: 1, // Соотношение сторон, чтобы сохранить квадратную форму
+          disableFlip: false // Разрешаем перевороты изображения, если необходимо
+        },
+        onScanSuccess,
+        onScanFailure
+      ).catch(err => {
+        console.error("Ошибка запуска сканера:", err);
+      });
+
+      // Скрываем кнопку после начала сканирования
+      scanButton.style.display = 'none';
+    });
+
+    // Обработчик кнопки "Получить справку"
+    getReceiptButton.addEventListener("click", () => {
+      alert('Справка будет отправлена на ваш email!');
+      modal.style.display = 'none'; // Закрываем модальное окно
+      scanButton.style.display = 'block'; // Показываем кнопку снова
+    });
+  </script>
+</body>
+</html>
