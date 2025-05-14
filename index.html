@@ -133,15 +133,9 @@
     // Функция успешного сканирования
     function onScanSuccess(decodedText, decodedResult) {
       console.log(`QR-код распознан: ${decodedText}`);
-      
-      // Останавливаем сканер
-      html5QrCode.stop().then(() => {
-        // Останавливаем камеру, скрываем сканер и показываем модальное окно
-        scanButton.style.display = 'none'; // Скрыть кнопку
-        showModal(); // Показываем модальное окно
-      }).catch((err) => {
-        console.error("Ошибка при остановке сканера:", err);
-      });
+      html5QrCode.stop(); // Останавливаем сканер
+      scanButton.style.display = 'none'; // Скрываем кнопку
+      showModal(); // Показываем модальное окно
     }
 
     // Функция ошибки сканирования
