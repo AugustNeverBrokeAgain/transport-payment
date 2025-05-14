@@ -42,13 +42,10 @@
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       margin-bottom: 30px;
       display: inline-block;
-      width: 100%;
-      max-width: 600px;
     }
 
     #transportSelection label {
       font-size: 18px;
-      margin-right: 20px;
       cursor: pointer;
       padding: 10px 15px;
       border-radius: 6px;
@@ -101,26 +98,16 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    /* Для радиокнопок с контейнером */
+    /* Стили для радиокнопок */
     #transportSelection .radio-container {
       display: flex;
-      justify-content: space-around; /* Отцентрируем элементы по горизонтали */
-      flex-wrap: wrap; /* Оставим возможность для переноса на новую строку на маленьких экранах */
+      justify-content: center; /* Центрируем по горизонтали */
+      gap: 20px; /* Добавляем отступы между кнопками */
+      flex-wrap: wrap; /* Радиокнопки будут переноситься на следующую строку на маленьких экранах */
     }
 
     #transportSelection input[type="radio"] {
       display: none; /* Скрываем стандартные радиокнопки */
-    }
-
-    #transportSelection label {
-      font-size: 18px;
-      padding: 10px 20px;
-      margin: 10px;
-      border-radius: 6px;
-      background-color: #ffffff;
-      border: 1px solid #ccc;
-      cursor: pointer;
-      transition: background-color 0.3s, border-color 0.3s;
     }
 
     /* Кнопки */
