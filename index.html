@@ -68,6 +68,8 @@
     const checkmark = document.getElementById("checkmark");
     const paymentStatus = document.getElementById("paymentStatus");
 
+    let html5QrCode;
+
     // Функция успешного сканирования
     function onScanSuccess(decodedText, decodedResult) {
       console.log(`QR-код распознан: ${decodedText}`);
@@ -103,9 +105,23 @@
 
     // Функция для остановки сканера
     function stopScanner() {
-      // Остановим камеру
-      const html5QrCode = new Html5Qrcode("reader");
-      html5QrCode.stop().then(() => {
-        console.log("Камера остановлена.");
-      }).catch((err) => {
-        console.error("Ошибка остановки камеры:", err
+      if (html5QrCode) {
+        html5QrCode.stop().then(() => {
+          console.log("Камера остановлена.");
+          reader.style.display = 'none'; // Скрываем зону сканирования
+        }).catch((err) => {
+          console.error("Ошибка остановки камеры:", err);
+        });
+      }
+    }
+
+    // Запуск сканера по нажатию кнопки
+    scanButton.addEventListener("click", () => {
+      // Инициализация сканера только при нажатии на кнопку
+      html5QrCode = new Html5Qrcode("reader");
+
+      html5QrCode.start(
+        { facingMode: "environment" }, // Используем камеру сзади
+        {
+          fps: 15, // Сканировать 15 раз в секунду
+          qrbox: { width: "80vw", height: "80vw" }, //
