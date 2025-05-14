@@ -30,9 +30,19 @@
       margin-bottom: 20px;
     }
 
+    /* Контейнер для формы выбора */
+    .form-container {
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin: 0 auto;
+      width: 90%;
+      max-width: 600px;
+    }
+
     #transportSelection {
-      margin: 0 auto 30px auto;
-      display: inline-block;
+      margin-bottom: 30px;
     }
 
     #transportSelection label.title {
@@ -154,22 +164,24 @@
 
   <h1>Оплата проезда</h1>
 
-  <div id="transportSelection">
-    <label class="title">Выберите транспорт:</label>
-    <div class="radio-group">
-      <input type="radio" name="transport" value="Трамвай" id="tram">
-      <label for="tram" class="radio-option">Трамвай</label>
+  <div class="form-container">
+    <div id="transportSelection">
+      <label class="title">Выберите транспорт:</label>
+      <div class="radio-group">
+        <input type="radio" name="transport" value="Трамвай" id="tram">
+        <label for="tram" class="radio-option">Трамвай</label>
 
-      <input type="radio" name="transport" value="Троллейбус" id="trolleybus">
-      <label for="trolleybus" class="radio-option">Троллейбус</label>
+        <input type="radio" name="transport" value="Троллейбус" id="trolleybus">
+        <label for="trolleybus" class="radio-option">Троллейбус</label>
 
-      <input type="radio" name="transport" value="Автобус" id="bus">
-      <label for="bus" class="radio-option">Автобус</label>
+        <input type="radio" name="transport" value="Автобус" id="bus">
+        <label for="bus" class="radio-option">Автобус</label>
+      </div>
+
+      <input type="number" id="number" placeholder="Введите номер">
+      <br>
+      <button id="confirmButton">Подтвердить</button>
     </div>
-
-    <input type="number" id="number" placeholder="Введите номер">
-    <br>
-    <button id="confirmButton">Подтвердить</button>
   </div>
 
   <div id="reader"></div>
