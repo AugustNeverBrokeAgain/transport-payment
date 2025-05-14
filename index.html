@@ -3,26 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Сканирование QR</title>
-  <link rel="stylesheet" href="style.css">
+  <title>QR-Scanner</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    #reader {
+      width: 300px;
+      margin: 0 auto;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
+  <h1>Сканирование QR-кода</h1>
+  <button id="scanButton">Сканировать QR-код</button>
 
-  <div class="container">
-    <h1>Сканирование QR-кода</h1>
-    <button id="scanButton">Сканировать QR-код</button>
-    <div id="result" class="hidden">
-      <p>Информация с QR-кода:</p>
-      <p id="qrContent">Здесь будет информация...</p>
-      <div id="paymentAnimation" class="hidden">
-        <p>Оплата прошла успешно!</p>
-        <div class="animation">✔️</div>
-      </div>
-    </div>
+  <div id="reader" style="width: 300px; height: 300px; margin: 20px auto;"></div>
+  <div id="result" style="display:none;">
+    <p><strong>Результат:</strong> <span id="qrContent"></span></p>
   </div>
 
+  <!-- Подключение библиотеки -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
-  
-  <script src="app.js"></script>
+
+  <script>
+    const scanButton = document.getElementById("scanButton");
+    const reader = document.getElementById("reader");
+    const resultContainer = document.getElementById("result");
+    const qrContent = document.getElementById("qrContent");
+
+    // Функция успешного сканирования
+    function onScanSuccess(decodedText, decodedResult) {
+      console.log(`QR-код распознан: ${decodedText}`);
+      qrContent.textContent = decodedText;
+      resultContainer.style.display = 'block'; // Показать результат
+    }
+
+    // Функция ошибки сканирования
+    function onScanFailure(error) {
+      console.warn(`Ошибка сканирования: ${error}`);
+    }
+
+    // Запуск сканера по нажатию кнопки
+    scanButton.addEventListener("click", () => {
+      // Инициализация сканера
+      const html5QrCode = new Html5Qrcode("reader");
+
+      html5QrCode.start(
+        { facingMode: "environment" }, // Используем камеру сзади
+        {
+          fps: 10, // Сканировать 10 раз в секунду
+          qrbox: 250, // Размер области для сканирования
+        },
+        onScanSuccess,
+        onScanFailure
+      ).catch(err => {
+        console.error("Ошибка запуска сканера:", err);
+      });
+    });
+  </script>
 </body>
 </html>
