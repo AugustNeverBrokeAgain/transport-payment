@@ -26,7 +26,7 @@
       display: none;
       padding: 20px;
       margin-top: 30px;
-      background-color: #FFEB3B; /* Желтый цвет */
+      background-color: #4CAF50;
       color: white;
       font-size: 20px;
       font-weight: bold;
@@ -36,23 +36,6 @@
     @keyframes fadeIn {
       0% { opacity: 0; }
       100% { opacity: 1; }
-    }
-    .checkmark {
-      font-size: 60px;
-      color: #4CAF50;
-    }
-    #getHelpButton {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #2196F3;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    #getHelpButton:hover {
-      background-color: #1976D2;
     }
   </style>
 </head>
@@ -64,14 +47,7 @@
   <div id="result" style="display:none;">
     <p><strong>Результат:</strong> <span id="qrContent"></span></p>
   </div>
-
-  <div id="animation">
-    <div id="checkmark" class="checkmark">✔</div>
-    <div id="paymentStatus">29₽</div>
-    <div id="paymentMessage">Оплата прошла успешно!</div>
-  </div> <!-- Блок для анимации -->
-
-  <button id="getHelpButton" style="display:none;">Получить справку</button>
+  <div id="animation"></div> <!-- Блок для анимации -->
 
   <!-- Подключение библиотеки -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
@@ -82,56 +58,54 @@
     const resultContainer = document.getElementById("result");
     const qrContent = document.getElementById("qrContent");
     const animationContainer = document.getElementById("animation");
-    const getHelpButton = document.getElementById("getHelpButton");
-
-    let html5QrCode; // Сюда будет записан экземпляр сканера
 
     // Функция успешного сканирования
     function onScanSuccess(decodedText, decodedResult) {
-      console.log(`QR-код распознан: ${decodedText}`);
+      console.log(QR-код распознан: ${decodedText});
       qrContent.textContent = decodedText;
       resultContainer.style.display = 'block'; // Показать результат
       showAnimation(); // Показать анимацию
-      stopScanner(); // Остановить сканер
     }
 
-    // Функция ошибки сканирования (но ошибка не будет выводиться)
+    // Функция ошибки сканирования
     function onScanFailure(error) {
-      // Ошибки при сканировании не выводим
+      console.warn(Ошибка сканирования: ${error});
     }
 
     // Функция для показа анимации
     function showAnimation() {
       animationContainer.style.display = 'block';
+      animationContainer.innerHTML = 'Оплата прошла успешно!';
 
-      // Анимация галочки и текста
+      // Изменение текста и цвета после 3 секунд
       setTimeout(() => {
-        document.getElementById("paymentStatus").textContent = '29₽';
-        setTimeout(() => {
-          document.getElementById("paymentMessage").textContent = 'Оплата прошла успешно!';
-        }, 2000);
-      }, 500);
-      
-      // Показать кнопку для получения справки
-      setTimeout(() => {
-        getHelpButton.style.display = 'block';
-      }, 4000);
-    }
-
-    // Остановка камеры
-    function stopScanner() {
-      if (html5QrCode) {
-        html5QrCode.stop().then(() => {
-          console.log("Камера остановлена.");
-          reader.style.display = 'none'; // Скрыть область сканирования
-        }).catch((err) => {
-          console.error("Ошибка остановки камеры:", err);
-        });
-      }
+        animationContainer.innerHTML = 'Ваш билет подтвержден!';
+        animationContainer.style.backgroundColor = '#2196F3'; // Синий цвет
+      }, 3000);
     }
 
     // Запуск сканера по нажатию кнопки
     scanButton.addEventListener("click", () => {
-      console.log("Кнопка нажата, запускаем сканер...");
+      // Инициализация сканера
+      const html5QrCode = new Html5Qrcode("reader");
 
-      // Инициализация сканера только при нажатии на кнопку
+      html5QrCode.start(
+        { facingMode: "environment" }, // Используем камеру сзади
+        {
+          fps: 15, // Сканировать 15 раз в секунду
+          qrbox: { width: "80vw", height: "80vw" }, // 80% от ширины экрана, с сохранением квадратной формы
+          aspectRatio: 1, // Соотношение сторон, чтобы сохранить квадратную форму
+          disableFlip: false // Разрешаем перевороты изображения, если необходимо
+        },
+        onScanSuccess,
+        onScanFailure
+      ).catch(err => {
+        console.error("Ошибка запуска сканера:", err);
+      });
+
+      // Скрываем кнопку после начала сканирования
+      scanButton.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
