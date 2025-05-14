@@ -42,6 +42,8 @@
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       margin-bottom: 30px;
       display: inline-block;
+      width: 100%;
+      max-width: 600px;
     }
 
     #transportSelection label {
@@ -52,34 +54,54 @@
       background-color: #ffffff;
       border: 1px solid #ccc;
       transition: background-color 0.3s, border-color 0.3s;
+      display: block;
+      margin-top: 10px;
     }
 
-    #transportSelection input[type="radio"]:checked + label {
+    /* Стиль радиокнопок */
+    .slider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 20px;
+    }
+
+    .slider input[type="radio"] {
+      display: none;
+    }
+
+    .slider .slide {
+      width: 200px;
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .slider .slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .slider input[type="radio"]:checked + .slide img {
+      transform: scale(1.1); /* Увеличение картинки при выборе */
+    }
+
+    #transportSelection input[type="radio"]:checked + .slider label {
       background-color: #ffcc00;
       border-color: #ffcc00;
       color: #000;
     }
 
-    #transportSelection input[type="radio"]:hover + label {
-      background-color: #f8f9fa;
-      border-color: #ffcc00;
-    }
-
-    #transportSelection input[type="radio"]:focus + label {
-      outline: none;
-      box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
-    }
-
-    #transportSelection input[type="radio"]:checked + label {
-      background-color: #ffcc00;
-      color: black;
-    }
-
-    #transportSelection input[type="radio"]:checked + label:hover {
+    #transportSelection input[type="radio"]:checked + .slider label:hover {
       background-color: #e6b800;
     }
 
-    #transportSelection input[type="radio"]:checked + label:active {
+    #transportSelection input[type="radio"]:checked + .slider label:active {
       background-color: #cc9e00;
     }
 
@@ -98,19 +120,7 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    /* Стили для радиокнопок */
-    #transportSelection .radio-container {
-      display: flex;
-      justify-content: center; /* Центрируем по горизонтали */
-      gap: 20px; /* Добавляем отступы между кнопками */
-      flex-wrap: wrap; /* Радиокнопки будут переноситься на следующую строку на маленьких экранах */
-    }
-
-    #transportSelection input[type="radio"] {
-      display: none; /* Скрываем стандартные радиокнопки */
-    }
-
-    /* Кнопки */
+    /* Кнопка */
     button {
       padding: 12px 24px;
       font-size: 18px;
@@ -132,7 +142,6 @@
       background-color: #cc9e00;
       box-shadow: none;
     }
-
   </style>
 </head>
 <body>
@@ -143,16 +152,26 @@
 
   <div id="transportSelection">
     <label>Выберите транспорт:</label><br>
-    <div class="radio-container">
+    <div class="slider">
       <input type="radio" name="transport" value="Трамвай" id="tram" /> 
-      <label for="tram">Трамвай</label>
-      
+      <label for="tram" class="slide">
+        <img src="tram.png" alt="Трамвай">
+        <span>Трамвай</span>
+      </label>
+
       <input type="radio" name="transport" value="Троллейбус" id="trolleybus" /> 
-      <label for="trolleybus">Троллейбус</label>
-      
+      <label for="trolleybus" class="slide">
+        <img src="trol.png" alt="Троллейбус">
+        <span>Троллейбус</span>
+      </label>
+
       <input type="radio" name="transport" value="Автобус" id="bus" /> 
-      <label for="bus">Автобус</label>
+      <label for="bus" class="slide">
+        <img src="bus.png" alt="Автобус">
+        <span>Автобус</span>
+      </label>
     </div>
+
     <br><br>
     <label for="number"><b>Введите номер:</b></label>
     <input type="number" id="number" placeholder="Номер" />
