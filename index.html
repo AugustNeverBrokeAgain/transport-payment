@@ -44,6 +44,13 @@
       display: inline-block;
     }
 
+    #transportSelection label {
+      font-size: 18px;
+      margin-bottom: 10px;
+      font-weight: 500;
+      display: block;
+    }
+
     #transportSelection input[type="radio"] {
       display: none; /* Скрываем стандартные радиокнопки */
     }
@@ -53,7 +60,7 @@
       margin-right: 20px;
       cursor: pointer;
       padding: 10px 15px;
-      border-radius: 6px;
+      border-radius: 50px; /* Скругление радиокнопок */
       background-color: #ffffff;
       border: 1px solid #ccc;
       transition: background-color 0.3s, border-color 0.3s;
@@ -88,7 +95,8 @@
       background-color: #cc9e00;
     }
 
-    #transportSelection input, #transportSelection button {
+    #transportSelection input,
+    #transportSelection button {
       margin: 12px;
       padding: 12px;
       font-size: 16px;
@@ -98,7 +106,8 @@
       transition: all 0.3s ease;
     }
 
-    #transportSelection input:hover, #transportSelection button:hover {
+    #transportSelection input:hover,
+    #transportSelection button:hover {
       border-color: #ffcc00;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
@@ -172,6 +181,33 @@
       background-color: #f1faee;
       color: #e63946;
     }
+
+    /* Стили для контейнера с радиокнопками */
+    #transportSelection div {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    /* Убираем рамку у поля "Введите номер" */
+    #number {
+      font-weight: 500;
+      border: none;
+      background-color: #f1f1f1;
+      padding: 12px;
+      border-radius: 6px;
+      width: 100%;
+      margin: 10px 0;
+      outline: none;
+      font-size: 16px;
+    }
+
+    #number:focus {
+      background-color: #fff;
+    }
+
   </style>
 </head>
 <body>
@@ -181,11 +217,18 @@
   <h1>Оплата за проезд</h1>
 
   <div id="transportSelection">
-    <label>Выберите транспорт:</label><br>
-    <input type="radio" name="transport" value="Трамвай" id="tram" /> <label for="tram">Трамвай</label>
-    <input type="radio" name="transport" value="Троллейбус" id="trolleybus" /> <label for="trolleybus">Троллейбус</label>
-    <input type="radio" name="transport" value="Автобус" id="bus" /> <label for="bus">Автобус</label>
-    <br><br>
+    <label>Выберите транспорт:</label>
+    <div>
+      <input type="radio" name="transport" value="Трамвай" id="tram" />
+      <label for="tram">Трамвай</label>
+      
+      <input type="radio" name="transport" value="Троллейбус" id="trolleybus" />
+      <label for="trolleybus">Троллейбус</label>
+      
+      <input type="radio" name="transport" value="Автобус" id="bus" />
+      <label for="bus">Автобус</label>
+    </div>
+    
     <label for="number">Введите номер:</label>
     <input type="number" id="number" placeholder="Номер" />
     <br><br>
@@ -229,44 +272,38 @@
       selectedTransport = transport.value;
       transportSelection.style.display = 'none';
       scanButton.style.display = 'inline';
-      console.log(`Вы выбрали: ${selectedTransport} №${enteredNumber}`);
     });
 
     scanButton.addEventListener('click', () => {
-      scanButton.style.display = 'none';
-      reader.style.display = 'block';
-
       html5QrCode = new Html5Qrcode("reader");
-
       html5QrCode.start(
         { facingMode: "environment" },
         {
-          fps: 10,
-          qrbox: { width: 300, height: 300 }
+          fps: 15,
+          qrbox: 250,
         },
-        (decodedText, decodedResult) => {
-          console.log("QR-код распознан:", decodedText);
-          stopScannerAndShowAnimation();
-        },
-        (error) => {
-          // Ошибки игнорируем
-        }
-      ).catch(err => {
-        console.error("Ошибка запуска сканера:", err);
-      });
-
+        onScanSuccess,
+        onScanFailure
+      );
       setTimeout(() => {
         stopScannerAndShowAnimation();
       }, 10000);
     });
 
+    function onScanSuccess(decodedText, decodedResult) {
+      html5QrCode.stop();
+      stopScannerAndShowAnimation();
+    }
+
+    function onScanFailure(error) {
+      console.warn(`Ошибка сканирования: ${error}`);
+    }
+
     function stopScannerAndShowAnimation() {
-      html5QrCode.stop().then(() => {
-        reader.style.display = 'none';
-        animation.style.display = 'block';
-        paymentDetails.innerHTML = `<p>${selectedTransport} №${enteredNumber}</p>`;
-        getReceiptButton.style.display = 'inline';
-      });
+      reader.style.display = 'none';
+      animation.style.display = 'block';
+      paymentDetails.innerHTML = `<p>${selectedTransport} №${enteredNumber}</p>`;
+      getReceiptButton.style.display = 'inline';
     }
 
     getReceiptButton.addEventListener('click', () => {
