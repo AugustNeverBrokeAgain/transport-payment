@@ -63,13 +63,10 @@
     /* Стиль радиокнопок */
     .slider {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
       gap: 20px;
-      overflow: hidden;
-      flex-wrap: nowrap;
-      position: relative;
+      margin-bottom: 20px;
       width: 100%;
     }
 
@@ -77,31 +74,45 @@
       display: none;
     }
 
-    .slider .slide {
-      width: 200px;
+    .slider label {
+      width: 48%; /* 2 элемента на одну строку */
       height: 200px;
-      position: relative;
+      display: block;
       overflow: hidden;
       border-radius: 8px;
       cursor: pointer;
-      flex-shrink: 0;
-      transition: transform 0.5s ease;
+      transition: transform 0.3s ease;
     }
 
-    .slider .slide img {
+    .slider label img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.3s ease;
     }
 
-    .slider input[type="radio"]:checked + .slide img {
-      transform: scale(1.1); /* Увеличение картинки при выборе */
+    /* Увеличение картинки при выборе */
+    .slider input[type="radio"]:checked + label img {
+      transform: scale(1.1);
     }
 
-    /* Скрываем текст под картинками */
-    .slider label span {
-      display: none;
+    .slider input[type="radio"]:checked + label {
+      background-color: #ffcc00;
+      border-color: #ffcc00;
+      color: #000;
+    }
+
+    .slider input[type="radio"]:checked + label:hover {
+      background-color: #e6b800;
+    }
+
+    .slider input[type="radio"]:checked + label:active {
+      background-color: #cc9e00;
+    }
+
+    /* Третья радиокнопка на новой строке */
+    .third {
+      width: 100%;
     }
 
     #transportSelection input, #transportSelection button {
@@ -151,19 +162,20 @@
 
   <div id="transportSelection">
     <label>Выберите транспорт:</label><br>
-    <div class="slider" id="slider">
+    <div class="slider">
       <input type="radio" name="transport" value="Трамвай" id="tram" /> 
-      <label for="tram" class="slide">
+      <label for="tram">
         <img src="tram.png" alt="Трамвай">
       </label>
 
       <input type="radio" name="transport" value="Троллейбус" id="trolleybus" /> 
-      <label for="trolleybus" class="slide">
+      <label for="trolleybus">
         <img src="trol.png" alt="Троллейбус">
       </label>
 
+      <!-- Третья кнопка на новой строке -->
       <input type="radio" name="transport" value="Автобус" id="bus" /> 
-      <label for="bus" class="slide">
+      <label for="bus" class="third">
         <img src="bus.png" alt="Автобус">
       </label>
     </div>
@@ -195,10 +207,6 @@
     const animation = document.getElementById('animation');
     const paymentDetails = document.getElementById('paymentDetails');
     const getReceiptButton = document.getElementById('getReceiptButton');
-    const slider = document.getElementById('slider');
-    const slides = document.querySelectorAll('.slider label');
-    let startX = 0;
-    let currentSlide = 0;
 
     let selectedTransport = '';
     let enteredNumber = '';
@@ -259,49 +267,6 @@
     getReceiptButton.addEventListener('click', () => {
       alert('Справка будет отправлена на ваш email.');
     });
-
-    // Функции для свайпа
-    slider.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX;
-    });
-
-    slider.addEventListener('touchend', (e) => {
-      const endX = e.changedTouches[0].clientX;
-      handleSwipe(startX, endX);
-    });
-
-    slider.addEventListener('mousedown', (e) => {
-      startX = e.pageX;
-    });
-
-    slider.addEventListener('mouseup', (e) => {
-      const endX = e.pageX;
-      handleSwipe(startX, endX);
-    });
-
-    function handleSwipe(start, end) {
-      if (start - end > 50) {
-        // Свайп влево
-        goToNextSlide();
-      } else if (end - start > 50) {
-        // Свайп вправо
-        goToPreviousSlide();
-      }
-    }
-
-    function goToNextSlide() {
-      currentSlide = (currentSlide + 1) % slides.length;
-      changeSlide();
-    }
-
-    function goToPreviousSlide() {
-      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-      changeSlide();
-    }
-
-    function changeSlide() {
-      slides[currentSlide].scrollIntoView({ behavior: 'smooth', inline: 'center' });
-    }
   </script>
 
 </body>
