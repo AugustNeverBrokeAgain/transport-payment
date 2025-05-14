@@ -4,7 +4,7 @@ const resultContainer = document.getElementById("result");
 const qrContent = document.getElementById("qrContent");
 const paymentAnimation = document.getElementById("paymentAnimation");
 
-let html5QrCode; // Объявляем глобально для остановки позже, если потребуется
+let html5QrCode; // Глобальная переменная для сканера
 
 const onScanSuccess = (decodedText, decodedResult) => {
   console.log("QR-код распознан:", decodedText);
@@ -28,7 +28,7 @@ const onScanSuccess = (decodedText, decodedResult) => {
 };
 
 const onScanFailure = error => {
-  // Можно не выводить каждую ошибку — они происходят постоянно при нераспознавании
+  // Ошибка сканирования, выводим в консоль
   console.warn("Ошибка сканирования:", error);
 };
 
@@ -47,15 +47,15 @@ scanButton.addEventListener("click", () => {
       // Если доступ разрешён — показываем камеру
       console.log("Доступ к камере получен!");
 
-      // Закрываем временный доступ к камере
+      // Останавливаем поток камеры сразу после получения разрешения
       stream.getTracks().forEach(track => track.stop());
 
       // Показываем область сканера
       reader.classList.remove("hidden");
 
+      // Инициализируем и запускаем сканер
       html5QrCode = new Html5Qrcode("reader");
 
-      // Запуск сканера QR-кодов
       html5QrCode.start(
         { facingMode: "environment" },
         { fps: 10, qrbox: 250 },
@@ -69,8 +69,12 @@ scanButton.addEventListener("click", () => {
       scanButton.disabled = true; // Отключаем кнопку на время сканирования
     })
     .catch(error => {
-      // Если пользователь отклонил доступ или произошла ошибка
+      // Обработка ошибки, если доступ к камере отклонён
       console.error("Доступ к камере отклонён:", error);
-      alert("Вы не предоставили доступ к камере. Сканирование невозможно.");
+      if (error.name === "NotAllowedError" || error.name === "PermissionDeniedError") {
+        alert("Вы не предоставили доступ к камере. Пожалуйста, разрешите доступ в настройках браузера.");
+      } else {
+        alert("Произошла ошибка при доступе к камере. Попробуйте обновить страницу.");
+      }
     });
 });
