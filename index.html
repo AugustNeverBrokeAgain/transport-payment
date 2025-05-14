@@ -17,7 +17,7 @@
       margin: 0;
     }
 
-     /* Обложка с картинкой вверху */
+    /* Обложка с картинкой вверху */
     #header {
       width: 100%;
       height: 20vh; /* Ограничиваем высоту на 20% от высоты экрана */
@@ -42,6 +42,50 @@
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       margin-bottom: 30px;
       display: inline-block;
+    }
+
+    #transportSelection input[type="radio"] {
+      display: none; /* Скрываем стандартные радиокнопки */
+    }
+
+    #transportSelection label {
+      font-size: 18px;
+      margin-right: 20px;
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 6px;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      transition: background-color 0.3s, border-color 0.3s;
+    }
+
+    #transportSelection input[type="radio"]:checked + label {
+      background-color: #ffcc00;
+      border-color: #ffcc00;
+      color: #000;
+    }
+
+    #transportSelection input[type="radio"]:hover + label {
+      background-color: #f8f9fa;
+      border-color: #ffcc00;
+    }
+
+    #transportSelection input[type="radio"]:focus + label {
+      outline: none;
+      box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+    }
+
+    #transportSelection input[type="radio"]:checked + label {
+      background-color: #ffcc00;
+      color: black;
+    }
+
+    #transportSelection input[type="radio"]:checked + label:hover {
+      background-color: #e6b800;
+    }
+
+    #transportSelection input[type="radio"]:checked + label:active {
+      background-color: #cc9e00;
     }
 
     #transportSelection input, #transportSelection button {
@@ -138,9 +182,9 @@
 
   <div id="transportSelection">
     <label>Выберите транспорт:</label><br>
-    <input type="radio" name="transport" value="Трамвай" /> Трамвай
-    <input type="radio" name="transport" value="Троллейбус" /> Троллейбус
-    <input type="radio" name="transport" value="Автобус" /> Автобус
+    <input type="radio" name="transport" value="Трамвай" id="tram" /> <label for="tram">Трамвай</label>
+    <input type="radio" name="transport" value="Троллейбус" id="trolleybus" /> <label for="trolleybus">Троллейбус</label>
+    <input type="radio" name="transport" value="Автобус" id="bus" /> <label for="bus">Автобус</label>
     <br><br>
     <label for="number">Введите номер:</label>
     <input type="number" id="number" placeholder="Номер" />
@@ -217,26 +261,16 @@
     });
 
     function stopScannerAndShowAnimation() {
-      if (html5QrCode) {
-        html5QrCode.stop().then(() => {
-          reader.style.display = 'none';
-          showPaymentDetails();
-        }).catch((err) => {
-          console.error("Ошибка остановки камеры:", err);
-        });
-      }
-    }
-
-    function showPaymentDetails() {
-      animation.style.display = 'block';
-      setTimeout(() => {
-        paymentDetails.innerHTML = `<p>Транспорт: ${selectedTransport}</p><p>Номер: ${enteredNumber}</p>`;
-        getReceiptButton.style.display = 'inline'; // Показываем кнопку "Получить справку"
-      }, 3000);
+      html5QrCode.stop().then(() => {
+        reader.style.display = 'none';
+        animation.style.display = 'block';
+        paymentDetails.innerHTML = `<p>${selectedTransport} №${enteredNumber}</p>`;
+        getReceiptButton.style.display = 'inline';
+      });
     }
 
     getReceiptButton.addEventListener('click', () => {
-      alert('Справка о платеже: \nОплата за проезд успешно выполнена!');
+      alert('Справка будет отправлена на ваш email.');
     });
   </script>
 </body>
