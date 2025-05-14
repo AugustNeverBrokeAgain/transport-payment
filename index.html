@@ -41,6 +41,19 @@
       font-size: 60px;
       color: #4CAF50;
     }
+    #getHelpButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #getHelpButton:hover {
+      background-color: #1976D2;
+    }
   </style>
 </head>
 <body>
@@ -51,10 +64,14 @@
   <div id="result" style="display:none;">
     <p><strong>Результат:</strong> <span id="qrContent"></span></p>
   </div>
+
   <div id="animation">
-    <div id="checkmark" class="checkmark"></div> <!-- Для галочки -->
-    <div id="paymentStatus">Оплата прошла успешно!</div>
+    <div id="checkmark" class="checkmark">✔</div>
+    <div id="paymentStatus">29₽</div>
+    <div id="paymentMessage">Оплата прошла успешно!</div>
   </div> <!-- Блок для анимации -->
+
+  <button id="getHelpButton" style="display:none;">Получить справку</button>
 
   <!-- Подключение библиотеки -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
@@ -65,29 +82,9 @@
     const resultContainer = document.getElementById("result");
     const qrContent = document.getElementById("qrContent");
     const animationContainer = document.getElementById("animation");
-    const checkmark = document.getElementById("checkmark");
-    const paymentStatus = document.getElementById("paymentStatus");
+    const getHelpButton = document.getElementById("getHelpButton");
 
     let html5QrCode;
-    let scanAttempts = 0; // Счётчик попыток сканирования
-
-    // Функция для показа анимации
-    function showAnimation() {
-      animationContainer.style.display = 'block';
-
-      // Анимация появления галочки
-      setTimeout(() => {
-        checkmark.textContent = '✔'; // Появляется галочка
-      }, 500);
-
-      // Через несколько секунд меняем текст
-      setTimeout(() => {
-        paymentStatus.textContent = '29₽';
-        setTimeout(() => {
-          paymentStatus.textContent = 'Оплата прошла успешно!';
-        }, 2000);
-      }, 1000);
-    }
 
     // Функция успешного сканирования
     function onScanSuccess(decodedText, decodedResult) {
@@ -95,29 +92,38 @@
       qrContent.textContent = decodedText;
       resultContainer.style.display = 'block'; // Показать результат
       showAnimation(); // Показать анимацию
-      stopScanner(); // Остановить камеру
+      stopScanner(); // Остановить сканер
     }
 
     // Функция ошибки сканирования
     function onScanFailure(error) {
       console.warn(`Ошибка сканирования: ${error}`);
-      scanAttempts++;
-
-      // Если сканирование не удается после нескольких попыток, показываем сообщение
-      if (scanAttempts > 5) {
-        alert("Не удается распознать QR код, попробуйте снова.");
-        stopScanner();
-      } else {
-        console.log(`Попытка сканирования № ${scanAttempts}`);
-      }
     }
 
-    // Функция для остановки сканера
+    // Функция для показа анимации
+    function showAnimation() {
+      animationContainer.style.display = 'block';
+
+      // Анимация галочки и текста
+      setTimeout(() => {
+        document.getElementById("paymentStatus").textContent = '29₽';
+        setTimeout(() => {
+          document.getElementById("paymentMessage").textContent = 'Оплата прошла успешно!';
+        }, 2000);
+      }, 500);
+      
+      // Показать кнопку для получения справки
+      setTimeout(() => {
+        getHelpButton.style.display = 'block';
+      }, 4000);
+    }
+
+    // Остановка камеры
     function stopScanner() {
       if (html5QrCode) {
         html5QrCode.stop().then(() => {
           console.log("Камера остановлена.");
-          reader.style.display = 'none'; // Скрываем зону сканирования
+          reader.style.display = 'none'; // Скрыть область сканирования
         }).catch((err) => {
           console.error("Ошибка остановки камеры:", err);
         });
@@ -127,12 +133,6 @@
     // Запуск сканера по нажатию кнопки
     scanButton.addEventListener("click", () => {
       console.log("Кнопка нажата, запускаем сканер...");
-
-      // Проверяем, не работает ли уже сканер
-      if (html5QrCode) {
-        console.log("Сканер уже работает!");
-        return; // Если сканер уже работает, не делаем ничего
-      }
 
       // Инициализация сканера только при нажатии на кнопку
       html5QrCode = new Html5Qrcode("reader");
@@ -155,6 +155,6 @@
       // Скрываем кнопку после начала сканирования
       scanButton.style.display = 'none';
     });
-  </script>
-</body>
-</html>
+
+    // Действие при нажатии кнопки "Получить справку"
+    getHelpButton.addEventListener('click',
