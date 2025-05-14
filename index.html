@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>QR-Scanner</title>
   <style>
     body {
@@ -14,6 +14,7 @@
     #transportSelection {
       margin-bottom: 20px;
     }
+
     #transportSelection input, #transportSelection button {
       margin: 5px;
       padding: 10px;
@@ -21,11 +22,143 @@
     }
 
     #confirmButton {
-      display: none;
       margin-top: 10px;
       padding: 10px 20px;
       font-size: 18px;
       background-color: #4CAF50;
       color: white;
       border: none;
-      cursor
+      cursor: pointer;
+    }
+
+    #reader {
+      width: 80vw;
+      height: 80vw;
+      max-width: 600px;
+      max-height: 600px;
+      margin: 20px auto;
+      border: 3px solid #000;
+      display: none;
+    }
+
+    #animation {
+      display: none;
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #4CAF50;
+      animation: fadeIn 2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    #paymentDetails {
+      margin-top: 20px;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Оплата за проезд</h1>
+
+  <div id="transportSelection">
+    <label>Выберите транспорт:</label><br>
+    <input type="radio" name="transport" value="Трамвай" /> Трамвай
+    <input type="radio" name="transport" value="Троллейбус" /> Троллейбус
+    <br><br>
+    <label for="number">Введите номер:</label>
+    <input type="number" id="number" placeholder="Номер" />
+    <br><br>
+    <button id="confirmButton">Подтвердить</button>
+  </div>
+
+  <div id="reader"></div>
+  <button id="scanButton" style="display:none;">Сканировать QR-код</button>
+
+  <div id="animation">
+    <p>29₽</p>
+    <p>Оплата успешна!</p>
+  </div>
+
+  <div id="paymentDetails"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+  <script>
+    const confirmButton = document.getElementById('confirmButton');
+    const transportSelection = document.getElementById('transportSelection');
+    const scanButton = document.getElementById('scanButton');
+    const reader = document.getElementById('reader');
+    const animation = document.getElementById('animation');
+    const paymentDetails = document.getElementById('paymentDetails');
+
+    let selectedTransport = '';
+    let enteredNumber = '';
+    let html5QrCode;
+
+    confirmButton.addEventListener('click', () => {
+      const transport = document.querySelector('input[name="transport"]:checked');
+      enteredNumber = document.getElementById('number').value.trim();
+
+      if (!transport || enteredNumber === '') {
+        alert('Пожалуйста, выберите транспорт и введите номер.');
+        return;
+      }
+
+      selectedTransport = transport.value;
+      transportSelection.style.display = 'none';
+      scanButton.style.display = 'inline';
+      console.log(`Вы выбрали: ${selectedTransport} №${enteredNumber}`);
+    });
+
+    scanButton.addEventListener('click', () => {
+      scanButton.style.display = 'none';
+      reader.style.display = 'block';
+
+      html5QrCode = new Html5Qrcode("reader");
+
+      html5QrCode.start(
+        { facingMode: "environment" },
+        {
+          fps: 10,
+          qrbox: { width: 300, height: 300 }
+        },
+        (decodedText, decodedResult) => {
+          console.log("QR-код распознан:", decodedText);
+          stopScannerAndShowAnimation();
+        },
+        (error) => {
+          // ошибки игнорируем
+        }
+      ).catch(err => {
+        console.error("Ошибка запуска сканера:", err);
+      });
+
+      setTimeout(() => {
+        stopScannerAndShowAnimation();
+      }, 10000);
+    });
+
+    function stopScannerAndShowAnimation() {
+      if (html5QrCode) {
+        html5QrCode.stop().then(() => {
+          reader.style.display = 'none';
+          showPaymentDetails();
+        }).catch((err) => {
+          console.error("Ошибка остановки камеры:", err);
+        });
+      }
+    }
+
+    function showPaymentDetails() {
+      animation.style.display = 'block';
+      setTimeout(() => {
+        paymentDetails.innerHTML = `<p>Транспорт: ${selectedTransport}</p><p>Номер: ${enteredNumber}</p>`;
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
