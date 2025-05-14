@@ -6,13 +6,11 @@
   <title>QR-Scanner</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
 
-  <div id="header"></div> <!-- Заголовок с изображением -->
+  <div id="header"></div>
 
   <h1>Оплата по СБП</h1>
 
@@ -20,13 +18,22 @@
     <label>Выберите транспорт:</label><br>
     <div class="radio-buttons">
       <input type="radio" name="transport" value="Трамвай" id="tram" />
-      <label for="tram">Трамвай</label>
+      <label for="tram">
+        <img src="tram.png" alt="Трамвай">
+        Трамвай
+      </label>
 
       <input type="radio" name="transport" value="Троллейбус" id="trolleybus" />
-      <label for="trolleybus">Троллейбус</label>
+      <label for="trolleybus">
+        <img src="trol.png" alt="Троллейбус">
+        Троллейбус
+      </label>
 
       <input type="radio" name="transport" value="Автобус" id="bus" />
-      <label for="bus">Автобус</label>
+      <label for="bus">
+        <img src="bus.png" alt="Автобус">
+        Автобус
+      </label>
     </div>
 
     <br><br>
@@ -73,7 +80,6 @@
       selectedTransport = transport.value;
       transportSelection.style.display = 'none';
       scanButton.style.display = 'inline';
-      console.log(`Вы выбрали: ${selectedTransport} №${enteredNumber}`);
     });
 
     scanButton.addEventListener('click', () => {
@@ -88,13 +94,10 @@
           fps: 10,
           qrbox: { width: 300, height: 300 }
         },
-        (decodedText, decodedResult) => {
-          console.log("QR-код распознан:", decodedText);
+        (decodedText) => {
           stopScannerAndShowAnimation();
         },
-        (error) => {
-          // Ошибки игнорируем
-        }
+        (error) => {}
       ).catch(err => {
         console.error("Ошибка запуска сканера:", err);
       });
