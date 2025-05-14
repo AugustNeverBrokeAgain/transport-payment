@@ -22,21 +22,85 @@
       margin-top: 20px;
       font-size: 18px;
     }
-    #animation {
-      display: none;
-      padding: 20px;
-      margin-top: 30px;
-      background-color: #4CAF50;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      border-radius: 10px;
-      animation: fadeIn 2s ease-out;
+
+    /* Стиль для модального окна */
+    #modal {
+      display: none; /* Изначально скрыто */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
-    @keyframes fadeIn {
+    #modalContent {
+      background-color: white;
+      padding: 30px;
+      border-radius: 15px;
+      width: 80%;
+      max-width: 400px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    #yellowCircle {
+      width: 100px;
+      height: 100px;
+      background-color: yellow;
+      border-radius: 50%;
+      margin: 0 auto;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      animation: fadeInCircle 1s forwards;
+    }
+    @keyframes fadeInCircle {
       0% { opacity: 0; }
       100% { opacity: 1; }
     }
+
+    #checkmark {
+      font-size: 50px;
+      color: green;
+      position: absolute;
+      opacity: 0;
+      animation: checkmarkAnimation 2s forwards;
+    }
+    @keyframes checkmarkAnimation {
+      0% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    #price {
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    #successMessage {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    #getReceiptButton {
+      margin-top: 30px;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #getReceiptButton:hover {
+      background-color: #45a049;
+    }
+
   </style>
 </head>
 <body>
@@ -44,10 +108,18 @@
   <button id="scanButton">Сканировать QR-код</button>
 
   <div id="reader"></div>
-  <div id="result" style="display:none;">
-    <p><strong>Результат:</strong> <span id="qrContent"></span></p>
+
+  <!-- Модальное окно -->
+  <div id="modal">
+    <div id="modalContent">
+      <div id="yellowCircle">
+        <div id="checkmark">✔</div>
+      </div>
+      <div id="price">29₽</div>
+      <div id="successMessage">Оплата прошла успешно!</div>
+      <button id="getReceiptButton">Получить справку</button>
+    </div>
   </div>
-  <div id="animation"></div> <!-- Блок для анимации -->
 
   <!-- Подключение библиотеки -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
@@ -55,16 +127,15 @@
   <script>
     const scanButton = document.getElementById("scanButton");
     const reader = document.getElementById("reader");
-    const resultContainer = document.getElementById("result");
-    const qrContent = document.getElementById("qrContent");
-    const animationContainer = document.getElementById("animation");
+    const modal = document.getElementById("modal");
+    const getReceiptButton = document.getElementById("getReceiptButton");
 
     // Функция успешного сканирования
     function onScanSuccess(decodedText, decodedResult) {
       console.log(`QR-код распознан: ${decodedText}`);
-      qrContent.textContent = decodedText;
-      resultContainer.style.display = 'block'; // Показать результат
-      showAnimation(); // Показать анимацию
+      html5QrCode.stop(); // Останавливаем сканер
+      scanButton.style.display = 'none'; // Скрываем кнопку
+      showModal(); // Показываем модальное окно
     }
 
     // Функция ошибки сканирования
@@ -72,21 +143,28 @@
       console.warn(`Ошибка сканирования: ${error}`);
     }
 
-    // Функция для показа анимации
-    function showAnimation() {
-      animationContainer.style.display = 'block';
-      animationContainer.innerHTML = 'Оплата прошла успешно!';
+    // Функция для показа модального окна
+    function showModal() {
+      modal.style.display = 'flex';
 
-      // Изменение текста и цвета после 3 секунд
+      // Запускаем анимацию желтого круга и галочки
+      const yellowCircle = document.getElementById("yellowCircle");
+      const checkmark = document.getElementById("checkmark");
+
+      yellowCircle.style.animation = 'fadeInCircle 1s forwards';
       setTimeout(() => {
-        animationContainer.innerHTML = 'Ваш билет подтвержден!';
-        animationContainer.style.backgroundColor = '#2196F3'; // Синий цвет
-      }, 3000);
+        checkmark.style.animation = 'checkmarkAnimation 2s forwards';
+      }, 500); // Немного задерживаем появление галочки
+
+      // Выводим цену и сообщение
+      setTimeout(() => {
+        document.getElementById("price").style.opacity = 1;
+        document.getElementById("successMessage").style.opacity = 1;
+      }, 2500); // Появление текста после анимации галочки
     }
 
     // Запуск сканера по нажатию кнопки
     scanButton.addEventListener("click", () => {
-      // Инициализация сканера
       const html5QrCode = new Html5Qrcode("reader");
 
       html5QrCode.start(
@@ -105,6 +183,13 @@
 
       // Скрываем кнопку после начала сканирования
       scanButton.style.display = 'none';
+    });
+
+    // Обработчик кнопки "Получить справку"
+    getReceiptButton.addEventListener("click", () => {
+      alert('Справка будет отправлена на ваш email!');
+      modal.style.display = 'none'; // Закрываем модальное окно
+      scanButton.style.display = 'block'; // Показываем кнопку снова
     });
   </script>
 </body>
