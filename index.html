@@ -67,8 +67,8 @@
       align-items: center;
       margin-bottom: 20px;
       gap: 20px;
-      overflow: hidden; /* Чтобы элементы не выходили за пределы контейнера */
-      flex-wrap: nowrap; /* Элементы не будут переноситься */
+      overflow: hidden;
+      flex-wrap: nowrap;
       position: relative;
       width: 100%;
     }
@@ -196,11 +196,9 @@
     const paymentDetails = document.getElementById('paymentDetails');
     const getReceiptButton = document.getElementById('getReceiptButton');
     const slider = document.getElementById('slider');
-    let touchStartX = 0;
-    let touchEndX = 0;
-    let isMouseDown = false;
+    const slides = document.querySelectorAll('.slider label');
     let startX = 0;
-    let offset = 0;
+    let currentSlide = 0;
 
     let selectedTransport = '';
     let enteredNumber = '';
@@ -262,58 +260,47 @@
       alert('Справка будет отправлена на ваш email.');
     });
 
-    // Обработчики для свайпов
+    // Функции для свайпа
     slider.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
+      startX = e.touches[0].clientX;
     });
 
     slider.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
+      const endX = e.changedTouches[0].clientX;
+      handleSwipe(startX, endX);
     });
 
     slider.addEventListener('mousedown', (e) => {
-      isMouseDown = true;
       startX = e.pageX;
     });
 
-    slider.addEventListener('mouseup', () => {
-      if (isMouseDown) {
-        isMouseDown = false;
-        handleSwipe();
-      }
+    slider.addEventListener('mouseup', (e) => {
+      const endX = e.pageX;
+      handleSwipe(startX, endX);
     });
 
-    slider.addEventListener('mousemove', (e) => {
-      if (isMouseDown) {
-        offset = e.pageX - startX;
-      }
-    });
-
-    function handleSwipe() {
-      if (touchStartX - touchEndX > 50 || offset > 50) {
-        // Свайп влево - переключить на следующий слайд
-        changeSlide(1);
-      } else if (touchEndX - touchStartX > 50 || offset < -50) {
-        // Свайп вправо - переключить на предыдущий слайд
-        changeSlide(-1);
+    function handleSwipe(start, end) {
+      if (start - end > 50) {
+        // Свайп влево
+        goToNextSlide();
+      } else if (end - start > 50) {
+        // Свайп вправо
+        goToPreviousSlide();
       }
     }
 
-    function changeSlide(direction) {
-      const slides = document.querySelectorAll('.slider input');
-      const checkedSlide = document.querySelector('.slider input:checked');
-      let currentIndex = Array.from(slides).indexOf(checkedSlide);
+    function goToNextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      changeSlide();
+    }
 
-      currentIndex += direction;
+    function goToPreviousSlide() {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      changeSlide();
+    }
 
-      if (currentIndex < 0) {
-        currentIndex = slides.length - 1; // Скольжение в начало
-      } else if (currentIndex >= slides.length) {
-        currentIndex = 0; // Скольжение в конец
-      }
-
-      slides[currentIndex].checked = true;
+    function changeSlide() {
+      slides[currentSlide].scrollIntoView({ behavior: 'smooth', inline: 'center' });
     }
   </script>
 
