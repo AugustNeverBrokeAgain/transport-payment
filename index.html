@@ -84,7 +84,7 @@
     const animationContainer = document.getElementById("animation");
     const getHelpButton = document.getElementById("getHelpButton");
 
-    let html5QrCode;
+    let html5QrCode; // Сюда будет записан экземпляр сканера
 
     // Функция успешного сканирования
     function onScanSuccess(decodedText, decodedResult) {
@@ -95,9 +95,9 @@
       stopScanner(); // Остановить сканер
     }
 
-    // Функция ошибки сканирования
+    // Функция ошибки сканирования (но ошибка не будет выводиться)
     function onScanFailure(error) {
-      // Ошибки при сканировании не выводим и не обрабатываем
+      // Ошибки при сканировании не выводим
     }
 
     // Функция для показа анимации
@@ -106,4 +106,32 @@
 
       // Анимация галочки и текста
       setTimeout(() => {
-        document
+        document.getElementById("paymentStatus").textContent = '29₽';
+        setTimeout(() => {
+          document.getElementById("paymentMessage").textContent = 'Оплата прошла успешно!';
+        }, 2000);
+      }, 500);
+      
+      // Показать кнопку для получения справки
+      setTimeout(() => {
+        getHelpButton.style.display = 'block';
+      }, 4000);
+    }
+
+    // Остановка камеры
+    function stopScanner() {
+      if (html5QrCode) {
+        html5QrCode.stop().then(() => {
+          console.log("Камера остановлена.");
+          reader.style.display = 'none'; // Скрыть область сканирования
+        }).catch((err) => {
+          console.error("Ошибка остановки камеры:", err);
+        });
+      }
+    }
+
+    // Запуск сканера по нажатию кнопки
+    scanButton.addEventListener("click", () => {
+      console.log("Кнопка нажата, запускаем сканер...");
+
+      // Инициализация сканера только при нажатии на кнопку
