@@ -1,36 +1,69 @@
 const scanButton = document.getElementById("scanButton");
+const reader = document.getElementById("reader");
 const resultContainer = document.getElementById("result");
 const qrContent = document.getElementById("qrContent");
 const paymentAnimation = document.getElementById("paymentAnimation");
 
+let html5QrCode; // Объявим глобально для остановки позже, если потребуется
+
 const onScanSuccess = (decodedText, decodedResult) => {
-  // Показать информацию с QR
+  console.log("QR-код распознан:", decodedText);
+
+  // Показать результат
   qrContent.textContent = decodedText;
-  
-  // Показать контейнер с результатом
   resultContainer.classList.remove("hidden");
 
-  // Показать анимацию
+  // Остановить сканирование
+  html5QrCode.stop().then(() => {
+    reader.classList.add("hidden");
+    scanButton.disabled = false;
+  }).catch(err => {
+    console.error("Ошибка остановки сканера:", err);
+  });
+
+  // Показать анимацию через 0.5 сек
   setTimeout(() => {
     paymentAnimation.classList.remove("hidden");
   }, 500);
 };
 
-const onScanError = (errorMessage) => {
-  console.warn(errorMessage);
+const onScanFailure = error => {
+  // Можно не выводить каждую ошибку — они происходят постоянно при нераспознавании
+  // console.warn("Ошибка сканирования:", error);
 };
 
 scanButton.addEventListener("click", () => {
-  const html5QrCode = new Html5Qrcode("reader");
+  // Проверка поддержки камеры
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    alert("Ваш браузер не поддерживает доступ к камере.");
+    return;
+  }
 
-  html5QrCode.start(
-    { facingMode: "environment" }, // Камера
-    {
-      fps: 10,    // Частота кадров
-      qrbox: 250  // Размер области для сканирования
-    },
-    onScanSuccess,
-    onScanError
-  );
-  scanButton.disabled = true;  // Отключить кнопку после нажатия
+  // Запрос доступа к камере
+  navigator.mediaDevices.getUserMedia({ video: true })
+    .then(stream => {
+      // Закрываем временный доступ к камере
+      stream.getTracks().forEach(track => track.stop());
+
+      // Показываем область сканера
+      reader.classList.remove("hidden");
+
+      html5QrCode = new Html5Qrcode("reader");
+
+      html5QrCode.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: 250 },
+        onScanSuccess,
+        onScanFailure
+      ).catch(err => {
+        console.error("Ошибка запуска сканера:", err);
+        alert("Не удалось запустить сканирование. Возможно, камера занята другим приложением.");
+      });
+
+      scanButton.disabled = true; // Отключаем кнопку на время сканирования
+    })
+    .catch(error => {
+      console.error("Доступ к камере отклонён:", error);
+      alert("Вы не предоставили доступ к камере. Сканирование невозможно.");
+    });
 });
