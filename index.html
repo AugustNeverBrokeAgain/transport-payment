@@ -3,136 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>QR-Scanner</title>
-  
+  <title>Оплата проезда</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
     body {
       font-family: 'Roboto', sans-serif;
       background-color: #f8f9fa;
-      color: #333;
+      color: #1c1c1c;
       text-align: center;
-      padding: 30px;
+      padding: 0;
       margin: 0;
     }
 
-    /* Обложка с картинкой вверху */
+    /* Обложка */
     #header {
       width: 100%;
-      height: 20vh; /* Ограничиваем высоту на 20% от высоты экрана */
-      background-image: url('BANK.png'); /* Указываем путь к картинке */
-      background-size: contain; /* Масштабируем картинку с сохранением пропорций */
-      background-position: center;
-      background-repeat: no-repeat;
-      margin-bottom: 30px;
+      height: 18vh;
+      background: url('BANK.png') center/contain no-repeat;
+      margin-bottom: 20px;
     }
 
     h1 {
-      color: #1d3557;
-      font-size: 32px;
-      font-weight: 700;
-      margin-bottom: 40px;
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 20px;
     }
 
     #transportSelection {
-      background-color: #ffffff;
-      border-radius: 8px;
-      padding: 30px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-      margin-bottom: 30px;
+      margin: 0 auto 30px auto;
       display: inline-block;
     }
 
-    #transportSelection label {
-      font-size: 18px;
-      margin-bottom: 10px;
-      font-weight: 500;
+    #transportSelection label.title {
       display: block;
+      margin-bottom: 12px;
+      font-weight: 500;
+      font-size: 16px;
     }
 
-    #transportSelection input[type="radio"] {
-      display: none; /* Скрываем стандартные радиокнопки */
+    /* Радиокнопки в одну строку */
+    .radio-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: nowrap;
     }
 
-    #transportSelection label {
-      font-size: 18px;
-      margin-right: 20px;
-      cursor: pointer;
-      padding: 10px 15px;
-      border-radius: 50px; /* Скругление радиокнопок */
-      background-color: #ffffff;
+    /* Скрыть оригинальные радиоэлементы */
+    .radio-group input[type="radio"] {
+      display: none;
+    }
+
+    /* Стили кастомных радиокнопок */
+    .radio-option {
+      padding: 6px 16px;
+      font-size: 14px;
+      border-radius: 16px;
+      background-color: #eeeeee;
       border: 1px solid #ccc;
+      cursor: pointer;
       transition: background-color 0.3s, border-color 0.3s;
     }
 
-    #transportSelection input[type="radio"]:checked + label {
+    .radio-group input[type="radio"]:checked + .radio-option {
       background-color: #ffcc00;
-      border-color: #ffcc00;
       color: #000;
-    }
-
-    #transportSelection input[type="radio"]:hover + label {
-      background-color: #f8f9fa;
       border-color: #ffcc00;
     }
 
-    #transportSelection input[type="radio"]:focus + label {
-      outline: none;
-      box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+    .radio-option:hover {
+      background-color: #eaeaea;
     }
 
-    #transportSelection input[type="radio"]:checked + label {
-      background-color: #ffcc00;
-      color: black;
-    }
-
-    #transportSelection input[type="radio"]:checked + label:hover {
-      background-color: #e6b800;
-    }
-
-    #transportSelection input[type="radio"]:checked + label:active {
-      background-color: #cc9e00;
-    }
-
-    #transportSelection input,
-    #transportSelection button {
-      margin: 12px;
-      padding: 12px;
-      font-size: 16px;
+    input[type="number"] {
+      padding: 10px 12px;
       border-radius: 6px;
-      border: 1px solid #ccc;
+      border: none;
+      background-color: #f1f1f1;
+      font-weight: 500;
+      font-size: 15px;
+      width: 140px;
+      margin-top: 20px;
       outline: none;
-      transition: all 0.3s ease;
     }
 
-    #transportSelection input:hover,
-    #transportSelection button:hover {
-      border-color: #ffcc00;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Стили для кнопок */
     button {
-      padding: 12px 24px;
-      font-size: 18px;
+      padding: 10px 24px;
+      margin-top: 20px;
+      font-size: 16px;
       background-color: #ffcc00;
       color: #000;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s, transform 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
 
     button:hover {
       background-color: #e6b800;
-      transform: scale(1.05);
-    }
-
-    button:active {
-      background-color: #cc9e00;
-      box-shadow: none;
+      transform: scale(1.03);
     }
 
     #reader {
@@ -141,97 +113,62 @@
       max-width: 600px;
       max-height: 600px;
       margin: 20px auto;
-      border: 3px solid #1d3557;
       display: none;
+      border: 2px solid #000;
     }
 
     #animation {
       display: none;
-      margin-top: 20px;
+      margin-top: 30px;
       font-size: 24px;
       font-weight: bold;
       color: #4CAF50;
-      animation: fadeIn 2s ease-out;
+      animation: fadeIn 1.5s ease-out;
     }
 
     @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     #paymentDetails {
-      margin-top: 20px;
-      font-size: 20px;
-      color: #333;
+      margin-top: 12px;
+      font-size: 16px;
+      font-weight: 500;
     }
 
     #getReceiptButton {
       margin-top: 20px;
-      padding: 12px 20px;
-      font-size: 18px;
       background-color: #e63946;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s;
+      color: #fff;
     }
 
     #getReceiptButton:hover {
-      background-color: #f1faee;
-      color: #e63946;
+      background-color: #c92c3a;
     }
-
-    /* Стили для контейнера с радиокнопками */
-    #transportSelection div {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-top: 10px;
-    }
-
-    /* Убираем рамку у поля "Введите номер" */
-    #number {
-      font-weight: 500;
-      border: none;
-      background-color: #f1f1f1;
-      padding: 12px;
-      border-radius: 6px;
-      width: 100%;
-      margin: 10px 0;
-      outline: none;
-      font-size: 16px;
-    }
-
-    #number:focus {
-      background-color: #fff;
-    }
-
   </style>
 </head>
 <body>
 
-  <div id="header"></div> <!-- Заголовок с изображением -->
+  <div id="header"></div>
 
-  <h1>Оплата за проезд</h1>
+  <h1>Оплата проезда</h1>
 
   <div id="transportSelection">
-    <label>Выберите транспорт:</label>
-    <div>
-      <input type="radio" name="transport" value="Трамвай" id="tram" />
-      <label for="tram">Трамвай</label>
-      
-      <input type="radio" name="transport" value="Троллейбус" id="trolleybus" />
-      <label for="trolleybus">Троллейбус</label>
-      
-      <input type="radio" name="transport" value="Автобус" id="bus" />
-      <label for="bus">Автобус</label>
+    <label class="title">Выберите транспорт:</label>
+    <div class="radio-group">
+      <input type="radio" name="transport" value="Трамвай" id="tram">
+      <label for="tram" class="radio-option">Трамвай</label>
+
+      <input type="radio" name="transport" value="Троллейбус" id="trolleybus">
+      <label for="trolleybus" class="radio-option">Троллейбус</label>
+
+      <input type="radio" name="transport" value="Автобус" id="bus">
+      <label for="bus" class="radio-option">Автобус</label>
     </div>
-    
-    <label for="number">Введите номер:</label>
-    <input type="number" id="number" placeholder="Номер" />
-    <br><br>
+
+    <input type="number" id="number" placeholder="Введите номер">
+    <br>
     <button id="confirmButton">Подтвердить</button>
   </div>
 
@@ -249,13 +186,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
   <script>
     const confirmButton = document.getElementById('confirmButton');
-    const transportSelection = document.getElementById('transportSelection');
     const scanButton = document.getElementById('scanButton');
     const reader = document.getElementById('reader');
     const animation = document.getElementById('animation');
     const paymentDetails = document.getElementById('paymentDetails');
     const getReceiptButton = document.getElementById('getReceiptButton');
-
+    const transportSelection = document.getElementById('transportSelection');
     let selectedTransport = '';
     let enteredNumber = '';
     let html5QrCode;
@@ -276,15 +212,14 @@
 
     scanButton.addEventListener('click', () => {
       html5QrCode = new Html5Qrcode("reader");
+      reader.style.display = 'block';
       html5QrCode.start(
         { facingMode: "environment" },
-        {
-          fps: 15,
-          qrbox: 250,
-        },
+        { fps: 15, qrbox: 250 },
         onScanSuccess,
-        onScanFailure
+        () => {}
       );
+
       setTimeout(() => {
         stopScannerAndShowAnimation();
       }, 10000);
@@ -293,10 +228,6 @@
     function onScanSuccess(decodedText, decodedResult) {
       html5QrCode.stop();
       stopScannerAndShowAnimation();
-    }
-
-    function onScanFailure(error) {
-      console.warn(`Ошибка сканирования: ${error}`);
     }
 
     function stopScannerAndShowAnimation() {
