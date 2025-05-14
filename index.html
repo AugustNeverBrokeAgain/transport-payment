@@ -97,7 +97,7 @@
 
     // Функция ошибки сканирования
     function onScanFailure(error) {
-      console.warn(`Ошибка сканирования: ${error}`);
+      // Ошибки при сканировании не выводим и не обрабатываем
     }
 
     // Функция для показа анимации
@@ -106,55 +106,4 @@
 
       // Анимация галочки и текста
       setTimeout(() => {
-        document.getElementById("paymentStatus").textContent = '29₽';
-        setTimeout(() => {
-          document.getElementById("paymentMessage").textContent = 'Оплата прошла успешно!';
-        }, 2000);
-      }, 500);
-      
-      // Показать кнопку для получения справки
-      setTimeout(() => {
-        getHelpButton.style.display = 'block';
-      }, 4000);
-    }
-
-    // Остановка камеры
-    function stopScanner() {
-      if (html5QrCode) {
-        html5QrCode.stop().then(() => {
-          console.log("Камера остановлена.");
-          reader.style.display = 'none'; // Скрыть область сканирования
-        }).catch((err) => {
-          console.error("Ошибка остановки камеры:", err);
-        });
-      }
-    }
-
-    // Запуск сканера по нажатию кнопки
-    scanButton.addEventListener("click", () => {
-      console.log("Кнопка нажата, запускаем сканер...");
-
-      // Инициализация сканера только при нажатии на кнопку
-      html5QrCode = new Html5Qrcode("reader");
-
-      html5QrCode.start(
-        { facingMode: "environment" }, // Используем камеру сзади
-        {
-          fps: 15, // Сканировать 15 раз в секунду
-          qrbox: { width: "80vw", height: "80vw" }, // 80% от ширины экрана, с сохранением квадратной формы
-          aspectRatio: 1, // Соотношение сторон, чтобы сохранить квадратную форму
-          disableFlip: false // Разрешаем перевороты изображения, если необходимо
-        },
-        onScanSuccess,
-        onScanFailure
-      ).catch(err => {
-        console.error("Ошибка запуска сканера:", err);
-        alert("Не удалось запустить камеру.");
-      });
-
-      // Скрываем кнопку после начала сканирования
-      scanButton.style.display = 'none';
-    });
-
-    // Действие при нажатии кнопки "Получить справку"
-    getHelpButton.addEventListener('click',
+        document
