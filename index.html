@@ -12,6 +12,7 @@
     }
     #reader {
       width: 300px;
+      height: 300px;
       margin: 0 auto;
     }
     #result {
@@ -58,8 +59,10 @@
       html5QrCode.start(
         { facingMode: "environment" }, // Используем камеру сзади
         {
-          fps: 10, // Сканировать 10 раз в секунду
+          fps: 15, // Сканировать 15 раз в секунду
           qrbox: 250, // Размер области для сканирования
+          aspectRatio: 1, // Соотношение сторон области сканирования
+          disableFlip: false // Разрешаем перевороты изображения, если необходимо
         },
         onScanSuccess,
         onScanFailure
