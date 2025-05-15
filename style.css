@@ -38,7 +38,7 @@ h1 {
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   padding: 30px;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px; /* Ширина контейнера */
   margin-bottom: 40px;
 }
 
@@ -54,14 +54,17 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
   font-size: 14px;
   color: #4a4a4a;
-  padding: 10px;
-  border-radius: 20px;  /* Радиокнопки вытянуты по высоте */
+  padding: 15px;
+  border-radius: 30px;
+  height: 100px;  /* Высота радиокнопок */
+  width: 30%;  /* Каждая кнопка занимает 30% ширины контейнера */
   transition: all 0.3s ease;
-  height: 80px; /* Сделаем кнопки выше */
-  width: 80px; /* Оставляем одинаковую ширину */
+  background-color: #fff;  /* Начальный фон */
+  border: 2px solid #ddd;  /* Начальная обводка */
 }
 
 .radio-buttons input[type="radio"] {
@@ -69,19 +72,24 @@ h1 {
 }
 
 .radio-buttons input[type="radio"]:checked + label {
-  border: 2px solid #fcb900;  /* Светящаяся обводка при выборе */
-  background-color: #fdf6e1;
+  border-color: #fcb900;  /* Измененная обводка */
+  background-color: #fdf6e1;  /* Светлая заливка при активации */
   box-shadow: 0px 0px 10px rgba(252, 185, 0, 0.5); /* Плавный эффект подсветки */
+}
+
+.radio-buttons input[type="radio"]:checked + label {
+  background-color: #fcb900; /* Заливка при нажатии */
+  color: #fff; /* Белый текст при активации */
 }
 
 .radio-buttons input[type="radio"]:focus + label {
   outline: none;
-  box-shadow: 0px 0px 10px rgba(252, 185, 0, 0.7);
+  box-shadow: 0px 0px 10px rgba(252, 185, 0, 0.7); /* Активная подсветка */
 }
 
 .radio-buttons img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
   margin-bottom: 10px;
 }
