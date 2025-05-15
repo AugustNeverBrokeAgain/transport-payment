@@ -3,6 +3,8 @@ const reader = document.getElementById("reader");
 const resultContainer = document.getElementById("result");
 const qrContent = document.getElementById("qrContent");
 const paymentAnimation = document.getElementById("paymentAnimation");
+const loadingAnimation = document.getElementById("loadingAnimation"); // Новый элемент анимации
+const scanContainer = document.getElementById("scanContainer"); // Контейнер с картинкой
 
 let html5QrCode; // Глобальная переменная для сканера
 
@@ -21,9 +23,18 @@ const onScanSuccess = (decodedText, decodedResult) => {
     console.error("Ошибка остановки сканера:", err);
   });
 
-  // Показать анимацию через 0.5 сек
+  // Скрыть контейнер с картинкой
+  scanContainer.style.display = 'none';
+
+  // Показать анимацию загрузки через 0.5 сек
   setTimeout(() => {
-    paymentAnimation.classList.remove("hidden");
+    loadingAnimation.classList.remove("hidden");
+
+    // После 4 секунд скрыть анимацию загрузки и показать успешную оплату
+    setTimeout(() => {
+      loadingAnimation.classList.add("hidden");
+      paymentAnimation.classList.remove("hidden");
+    }, 4000);
   }, 500);
 };
 
@@ -44,9 +55,9 @@ confirmButton.addEventListener('click', () => {
   selectedTransport = transport.value;
   transportSelection.style.display = 'none';
   scanButton.style.display = 'inline';
-  
+
   // Показываем контейнер с картинкой
-  document.getElementById('scanContainer').style.display = 'block';
+  scanContainer.style.display = 'block';
 });
 
 scanButton.addEventListener("click", () => {
