@@ -57,6 +57,11 @@ h1 {
   text-align: center;
   font-size: 14px;
   color: #4a4a4a;
+  padding: 10px;
+  border-radius: 20px;  /* Радиокнопки вытянуты по высоте */
+  transition: all 0.3s ease;
+  height: 80px; /* Сделаем кнопки выше */
+  width: 80px; /* Оставляем одинаковую ширину */
 }
 
 .radio-buttons input[type="radio"] {
@@ -67,7 +72,6 @@ h1 {
   border: 2px solid #fcb900;  /* Светящаяся обводка при выборе */
   background-color: #fdf6e1;
   box-shadow: 0px 0px 10px rgba(252, 185, 0, 0.5); /* Плавный эффект подсветки */
-  border-radius: 10px;
 }
 
 .radio-buttons input[type="radio"]:focus + label {
@@ -82,16 +86,17 @@ h1 {
   margin-bottom: 10px;
 }
 
-.radio-buttons label {
-  padding: 10px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+/* Ввод номера и надпись на одной строке */
+#transportSelection label[for="number"] {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 16px;
 }
 
 input[type="number"] {
   padding: 10px 15px;
   font-size: 16px;
-  width: 100%;
+  width: 250px; /* Сделаем поле ввода чуть длиннее */
   margin-bottom: 20px;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -106,7 +111,7 @@ input[type="number"]:focus {
 /* Кнопка подтверждения */
 button {
   padding: 12px 24px;
-  background-color: #2e74f6;
+  background-color: #fcb900; /* Желтый цвет кнопки, как на сайте Tinkoff */
   color: white;
   border: none;
   border-radius: 8px;
@@ -116,7 +121,7 @@ button {
 }
 
 button:hover {
-  background-color: #1a5bb8;
+  background-color: #f8a800; /* Темно-желтый при наведении */
 }
 
 button:disabled {
