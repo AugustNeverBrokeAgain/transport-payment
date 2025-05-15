@@ -91,21 +91,26 @@ window.addEventListener("DOMContentLoaded", () => {
   const preloader = document.getElementById("preloader");
   const loadingText = document.getElementById("loadingText");
 
-  // Загружаем фразы из файла
-  fetch('phrases.json')
-    .then(response => response.json())
-    .then(phrases => {
-      // Выбираем случайную фразу из списка
-      const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-      loadingText.textContent = randomPhrase;
+  fetch("phrases.json")
+    .then(res => {
+      if (!res.ok) throw new Error("Файл не найден или ошибка сети");
+      return res.json();
     })
-    .catch(error => {
-      console.error("Ошибка при загрузке фраз:", error);
+    .then(phrases => {
+      if (Array.isArray(phrases) && phrases.length > 0) {
+        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+        loadingText.textContent = randomPhrase;
+      } else {
+        loadingText.textContent = "Подготовка интерфейса...";
+      }
+    })
+    .catch(err => {
+      console.error("Ошибка при загрузке фраз:", err);
+      loadingText.textContent = "Загрузка...";
     });
 
-  // Прелоадер исчезает через 3 секунды
+  // Убираем прелоадер через 3 секунды
   setTimeout(() => {
     preloader.classList.add("hide");
   }, 3000);
-
-}
+});
