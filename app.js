@@ -15,27 +15,12 @@ const onScanSuccess = (decodedText, decodedResult) => {
   qrContent.textContent = decodedText;
   resultContainer.classList.remove("hidden");
 
-  // Остановить сканирование
+  // Остановить сканирование (но не прерываем дальнейшую логику)
   html5QrCode.stop().then(() => {
     reader.classList.add("hidden");
-    scanButton.disabled = false;
   }).catch(err => {
     console.error("Ошибка остановки сканера:", err);
   });
-
-  // Скрыть контейнер с картинкой
-  scanContainer.style.display = 'none';
-
-  // Показать анимацию загрузки через 0.5 сек
-  setTimeout(() => {
-    loadingAnimation.classList.remove("hidden");
-
-    // После 4 секунд скрыть анимацию загрузки и показать успешную оплату
-    setTimeout(() => {
-      loadingAnimation.classList.add("hidden");
-      paymentAnimation.classList.remove("hidden");
-    }, 4000);
-  }, 500);
 };
 
 const onScanFailure = error => {
@@ -95,6 +80,24 @@ scanButton.addEventListener("click", () => {
       });
 
       scanButton.disabled = true; // Отключаем кнопку на время сканирования
+
+      // Закрытие сканера через 10 секунд, независимо от результата
+      setTimeout(() => {
+        html5QrCode.stop().then(() => {
+          reader.classList.add("hidden");
+        }).catch(err => {
+          console.error("Ошибка остановки сканера:", err);
+        });
+
+        // Показать анимацию загрузки
+        loadingAnimation.classList.remove("hidden");
+
+        // Через 4 секунды показать успешную оплату
+        setTimeout(() => {
+          loadingAnimation.classList.add("hidden");
+          paymentAnimation.classList.remove("hidden");
+        }, 4000);
+      }, 10000); // Через 10 секунд закрыть сканер
     })
     .catch(error => {
       // Обработка ошибки, если доступ к камере отклонён
