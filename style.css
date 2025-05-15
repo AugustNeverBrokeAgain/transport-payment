@@ -129,16 +129,41 @@ button:active {
   margin-top: 30px;
 }
 
+/* Стиль для контейнера с картинкой */
 #scanContainer {
-  display: none; /* Скрыть контейнер по умолчанию */
+  display: none; /* Скрыть контейнер с картинкой по умолчанию */
   width: auto; /* Размер контейнера будет зависеть от размера изображения */
   height: auto; /* Размер контейнера будет зависеть от размера изображения */
   margin: 0 auto; /* Центрируем контейнер */
   border-radius: 15px; /* Скругление углов */
 }
 
+/* Картинка внутри контейнера */
 #scanImage {
   width: 100%; /* Картинка займет весь контейнер */
   height: auto; /* Картинка сохранит пропорции */
   object-fit: contain; /* Картинка будет помещена в контейнер без искажения */
+}
+
+/* Анимация загрузки */
+#loadingAnimation {
+  display: none; /* Скрыть анимацию загрузки по умолчанию */
+  text-align: center;
+}
+
+#loadingImage {
+  width: 50px; /* Размер изображения загрузки */
+  height: 50px; /* Размер изображения загрузки */
+}
+
+/* Стиль для успешной оплаты */
+#paymentAnimation {
+  display: none; /* Скрыть анимацию успешной оплаты по умолчанию */
+  text-align: center;
+}
+
+#paymentAnimation p {
+  font-size: 24px;
+  font-weight: bold;
+  color: green;
 }
