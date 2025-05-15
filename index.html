@@ -9,13 +9,22 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <div id="preloader">
   <div class="preloader-content">
     <img src="BANK.png" alt="Loading Logo">
     <p>Загрузка...</p>
   </div>
 </div>
+
+  <script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const preloader = document.getElementById("preloader");
+
+    setTimeout(() => {
+      preloader.classList.add("hide");
+    }, 3000); // исчезает через 3 секунды
+  });
+</script>
   
   <div id="header">
   <img src="BANK.png" alt="BANK Logo">
