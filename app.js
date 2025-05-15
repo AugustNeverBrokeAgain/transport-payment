@@ -85,4 +85,12 @@ function stopScanning() {
     loadingAnimation.classList.add("hidden");
     paymentAnimation.classList.remove("hidden");
   }, 4000);
+});
+
+  window.addEventListener("load", () => {
+  const preloader = document.getElementById("preloader");
+  setTimeout(() => {
+    preloader.classList.add("hide");
+  }, 300); // лёгкая задержка для плавности
+
 }
