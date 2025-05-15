@@ -58,9 +58,9 @@ h1 {
   text-align: center;
   font-size: 14px;
   color: #4a4a4a;
-  padding: 15px;
-  border-radius: 30px;
-  height: 100px;  /* Высота радиокнопок */
+  padding: 10px;
+  border-radius: 8px;  /* Меньшее скругление */
+  height: 120px;  /* Больше высота для картинок */
   width: 30%;  /* Каждая кнопка занимает 30% ширины контейнера */
   transition: all 0.3s ease;
   background-color: #fff;  /* Начальный фон */
@@ -88,8 +88,8 @@ h1 {
 }
 
 .radio-buttons img {
-  width: 40px;
-  height: 40px;
+  width: 60px;  /* Изменим размер картинок */
+  height: 60px;
   object-fit: contain;
   margin-bottom: 10px;
 }
