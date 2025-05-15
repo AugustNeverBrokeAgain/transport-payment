@@ -32,6 +32,23 @@ const onScanFailure = error => {
   console.warn("Ошибка сканирования:", error);
 };
 
+confirmButton.addEventListener('click', () => {
+  const transport = document.querySelector('input[name="transport"]:checked');
+  enteredNumber = document.getElementById('number').value.trim();
+
+  if (!transport || enteredNumber === '') {
+    alert('Пожалуйста, выберите транспорт и введите номер.');
+    return;
+  }
+
+  selectedTransport = transport.value;
+  transportSelection.style.display = 'none';
+  scanButton.style.display = 'inline';
+  
+  // Показываем контейнер с картинкой
+  document.getElementById('scanContainer').style.display = 'block';
+});
+
 scanButton.addEventListener("click", () => {
   // Проверка поддержки камеры
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
