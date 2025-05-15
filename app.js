@@ -87,11 +87,25 @@ function stopScanning() {
   }, 4000);
 });
 
-  window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", () => {
   const preloader = document.getElementById("preloader");
+  const loadingText = document.getElementById("loadingText");
 
-  // Убираем прелоадер через 3 секунды
+  // Загружаем фразы из файла
+  fetch('phrases.json')
+    .then(response => response.json())
+    .then(phrases => {
+      // Выбираем случайную фразу из списка
+      const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+      loadingText.textContent = randomPhrase;
+    })
+    .catch(error => {
+      console.error("Ошибка при загрузке фраз:", error);
+    });
+
+  // Прелоадер исчезает через 3 секунды
   setTimeout(() => {
     preloader.classList.add("hide");
-  }, 3);
+  }, 3000);
+
 }
