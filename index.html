@@ -10,119 +10,126 @@
 </head>
 <body>
 
-  <div id="header"></div>
+<div id="header"></div>
 
-  <h1>Оплата по СБП</h1>
+<h1>Оплата по СБП</h1>
 
-  <div id="transportSelection">
-    <label>Выберите транспорт:</label><br>
-    <div class="radio-buttons">
-      <input type="radio" name="transport" value="Трамвай" id="tram" />
-      <label for="tram">
-        <img src="tram.png" alt="Трамвай">
-        Трамвай
-      </label>
+<div id="transportSelection">
+  <label>Выберите транспорт:</label><br>
+  <div class="radio-buttons">
+    <input type="radio" name="transport" value="Трамвай" id="tram" />
+    <label for="tram">
+      <img src="tram.png" alt="Трамвай">
+      Трамвай
+    </label>
 
-      <input type="radio" name="transport" value="Троллейбус" id="trolleybus" />
-      <label for="trolleybus">
-        <img src="trol.png" alt="Троллейбус">
-        Троллейбус
-      </label>
+    <input type="radio" name="transport" value="Троллейбус" id="trolleybus" />
+    <label for="trolleybus">
+      <img src="trol.png" alt="Троллейбус">
+      Троллейбус
+    </label>
 
-      <input type="radio" name="transport" value="Автобус" id="bus" />
-      <label for="bus">
-        <img src="bus.png" alt="Автобус">
-        Автобус
-      </label>
-    </div>
-
-    <br><br>
-    <label for="number"><b>Введите номер:</b></label>
-    <input type="number" id="number" placeholder="Номер" />
-    <br><br>
-    <button id="confirmButton">Подтвердить</button>
+    <input type="radio" name="transport" value="Автобус" id="bus" />
+    <label for="bus">
+      <img src="bus.png" alt="Автобус">
+      Автобус
+    </label>
   </div>
 
-  <div id="reader"></div>
-  <div id="scanContainer">
+  <br><br>
+  <label for="number"><b>Введите номер:</b></label>
+  <input type="number" id="number" placeholder="Номер" />
+  <br><br>
+  <button id="confirmButton">Подтвердить</button>
+</div>
+
+<div id="reader"></div>
+
+<!-- Контейнер с картинкой, скрыт до нажатия на кнопку -->
+<div id="scanContainer" style="display:none;">
   <img src="plata.png" alt="Сканировать QR-код" id="scanImage"/>
 </div>
-  <button id="scanButton" style="display:none;">Сканировать QR-код</button>
 
-  <div id="animation">
-    <p>29₽</p>
-    <p>Оплата успешна!</p>
-  </div>
+<!-- Кнопка для сканирования QR-кода -->
+<button id="scanButton" style="display:none;">Сканировать QR-код</button>
 
-  <div id="paymentDetails"></div>
-  <button id="getReceiptButton" style="display:none;">Получить справку</button>
+<div id="animation">
+  <p>29₽</p>
+  <p>Оплата успешна!</p>
+</div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
-  <script>
-    const confirmButton = document.getElementById('confirmButton');
-    const transportSelection = document.getElementById('transportSelection');
-    const scanButton = document.getElementById('scanButton');
-    const reader = document.getElementById('reader');
-    const animation = document.getElementById('animation');
-    const paymentDetails = document.getElementById('paymentDetails');
-    const getReceiptButton = document.getElementById('getReceiptButton');
+<div id="paymentDetails"></div>
+<button id="getReceiptButton" style="display:none;">Получить справку</button>
 
-    let selectedTransport = '';
-    let enteredNumber = '';
-    let html5QrCode;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+<script>
+  const confirmButton = document.getElementById('confirmButton');
+  const transportSelection = document.getElementById('transportSelection');
+  const scanButton = document.getElementById('scanButton');
+  const reader = document.getElementById('reader');
+  const animation = document.getElementById('animation');
+  const paymentDetails = document.getElementById('paymentDetails');
+  const getReceiptButton = document.getElementById('getReceiptButton');
 
-    confirmButton.addEventListener('click', () => {
-      const transport = document.querySelector('input[name="transport"]:checked');
-      enteredNumber = document.getElementById('number').value.trim();
+  let selectedTransport = '';
+  let enteredNumber = '';
+  let html5QrCode;
 
-      if (!transport || enteredNumber === '') {
-        alert('Пожалуйста, выберите транспорт и введите номер.');
-        return;
-      }
+  confirmButton.addEventListener('click', () => {
+    const transport = document.querySelector('input[name="transport"]:checked');
+    enteredNumber = document.getElementById('number').value.trim();
 
-      selectedTransport = transport.value;
-      transportSelection.style.display = 'none';
-      scanButton.style.display = 'inline';
-    });
-
-    scanButton.addEventListener('click', () => {
-      scanButton.style.display = 'none';
-      reader.style.display = 'block';
-
-      html5QrCode = new Html5Qrcode("reader");
-
-      html5QrCode.start(
-        { facingMode: "environment" },
-        {
-          fps: 10,
-          qrbox: { width: 300, height: 300 }
-        },
-        (decodedText) => {
-          stopScannerAndShowAnimation();
-        },
-        (error) => {}
-      ).catch(err => {
-        console.error("Ошибка запуска сканера:", err);
-      });
-
-      setTimeout(() => {
-        stopScannerAndShowAnimation();
-      }, 10000);
-    });
-
-    function stopScannerAndShowAnimation() {
-      html5QrCode.stop().then(() => {
-        reader.style.display = 'none';
-        animation.style.display = 'block';
-        paymentDetails.innerHTML = `<p>${selectedTransport} №${enteredNumber}</p>`;
-        getReceiptButton.style.display = 'inline';
-      });
+    if (!transport || enteredNumber === '') {
+      alert('Пожалуйста, выберите транспорт и введите номер.');
+      return;
     }
 
-    getReceiptButton.addEventListener('click', () => {
-      alert('Справка будет отправлена на ваш email.');
+    selectedTransport = transport.value;
+    transportSelection.style.display = 'none';
+    scanButton.style.display = 'inline';
+    
+    // Показываем контейнер с картинкой
+    document.getElementById('scanContainer').style.display = 'block';
+  });
+
+  scanButton.addEventListener('click', () => {
+    scanButton.style.display = 'none';
+    reader.style.display = 'block';
+
+    html5QrCode = new Html5Qrcode("reader");
+
+    html5QrCode.start(
+      { facingMode: "environment" },
+      {
+        fps: 10,
+        qrbox: { width: 300, height: 300 }
+      },
+      (decodedText) => {
+        stopScannerAndShowAnimation();
+      },
+      (error) => {}
+    ).catch(err => {
+      console.error("Ошибка запуска сканера:", err);
     });
-  </script>
+
+    setTimeout(() => {
+      stopScannerAndShowAnimation();
+    }, 10000);
+  });
+
+  function stopScannerAndShowAnimation() {
+    html5QrCode.stop().then(() => {
+      reader.style.display = 'none';
+      animation.style.display = 'block';
+      paymentDetails.innerHTML = `<p>${selectedTransport} №${enteredNumber}</p>`;
+      getReceiptButton.style.display = 'inline';
+    });
+  }
+
+  getReceiptButton.addEventListener('click', () => {
+    alert('Справка будет отправлена на ваш email.');
+  });
+</script>
 
 </body>
 </html>
