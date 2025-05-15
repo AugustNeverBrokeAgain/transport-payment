@@ -8,6 +8,7 @@ const scanContainer = document.getElementById("scanContainer"); // Контей�
 
 let html5QrCode; // Глобальная переменная для сканера
 
+// Функция обработки успешного сканирования
 const onScanSuccess = (decodedText, decodedResult) => {
   console.log("QR-код распознан:", decodedText);
 
@@ -16,18 +17,33 @@ const onScanSuccess = (decodedText, decodedResult) => {
   resultContainer.classList.remove("hidden");
 
   // Остановить сканирование
+  stopScanning();
+};
+
+// Функция обработки ошибок сканирования
+const onScanFailure = error => {
+  console.warn("Ошибка сканирования:", error);
+};
+
+// Функция остановки сканера
+const stopScanning = () => {
   html5QrCode.stop().then(() => {
     reader.classList.add("hidden");
   }).catch(err => {
     console.error("Ошибка остановки сканера:", err);
   });
+  
+  // Показать анимацию загрузки
+  loadingAnimation.classList.remove("hidden");
+
+  // Через 4 секунды показать успешную оплату
+  setTimeout(() => {
+    loadingAnimation.classList.add("hidden");
+    paymentAnimation.classList.remove("hidden");
+  }, 4000);
 };
 
-const onScanFailure = error => {
-  // Ошибка сканирования, выводим в консоль
-  console.warn("Ошибка сканирования:", error);
-};
-
+// Функция, вызываемая при подтверждении данных
 confirmButton.addEventListener('click', () => {
   const transport = document.querySelector('input[name="transport"]:checked');
   enteredNumber = document.getElementById('number').value.trim();
@@ -83,20 +99,7 @@ scanButton.addEventListener("click", () => {
 
       // Закрытие сканера через 10 секунд, независимо от результата
       setTimeout(() => {
-        html5QrCode.stop().then(() => {
-          reader.classList.add("hidden");
-        }).catch(err => {
-          console.error("Ошибка остановки сканера:", err);
-        });
-
-        // Показать анимацию загрузки
-        loadingAnimation.classList.remove("hidden");
-
-        // Через 4 секунды показать успешную оплату
-        setTimeout(() => {
-          loadingAnimation.classList.add("hidden");
-          paymentAnimation.classList.remove("hidden");
-        }, 4000);
+        stopScanning(); // Останавливаем сканер и показываем анимацию
       }, 10000); // Через 10 секунд закрыть сканер
     })
     .catch(error => {
