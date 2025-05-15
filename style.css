@@ -29,10 +29,20 @@
   text-align: center;
 }
 
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
 .preloader-content img {
-  width: 480px; /* в 4 раза больше (если изначально был ~120px) */
+  width: 480px;
   height: auto;
   margin-bottom: 20px;
+  animation: pulse 2s infinite ease-in-out;
 }
 
 .preloader-content p {
