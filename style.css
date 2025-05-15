@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #f4f8fb;  /* Легкий фон */
+  background-color: #f4f8fb;
   color: #333;
   line-height: 1.6;
   display: flex;
@@ -18,7 +18,6 @@ body {
   padding: 20px;
 }
 
-/* Заголовок */
 h1 {
   font-size: 28px;
   color: #3e4a59;
@@ -27,18 +26,17 @@ h1 {
   text-align: center;
 }
 
-/* Основной контейнер для выбора транспорта */
+/* Контейнер выбора транспорта */
 #transportSelection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   background-color: #ffffff;
   border-radius: 12px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   padding: 30px;
   width: 100%;
-  max-width: 500px; /* Ширина контейнера */
+  max-width: 500px;
   margin-bottom: 40px;
 }
 
@@ -59,42 +57,33 @@ h1 {
   font-size: 14px;
   color: #4a4a4a;
   padding: 10px;
-  border-radius: 8px;  /* Меньшее скругление */
-  height: 120px;  /* Больше высота для картинок */
-  width: 30%;  /* Каждая кнопка занимает 30% ширины контейнера */
+  border-radius: 8px; /* Уменьшенное скругление */
+  height: 200px; /* Увеличенная высота */
+  width: 30%;
   transition: all 0.3s ease;
-  background-color: #fff;  /* Начальный фон */
-  border: 2px solid #ddd;  /* Начальная обводка */
+  background-color: #fff;
+  border: 2px solid #ddd;
 }
 
 .radio-buttons input[type="radio"] {
-  display: none; /* Скрываем стандартные радиокнопки */
+  display: none;
 }
 
 .radio-buttons input[type="radio"]:checked + label {
-  border-color: #fcb900;  /* Измененная обводка */
-  background-color: #fdf6e1;  /* Светлая заливка при активации */
-  box-shadow: 0px 0px 10px rgba(252, 185, 0, 0.5); /* Плавный эффект подсветки */
-}
-
-.radio-buttons input[type="radio"]:checked + label {
-  background-color: #fcb900; /* Заливка при нажатии */
-  color: #fff; /* Белый текст при активации */
-}
-
-.radio-buttons input[type="radio"]:focus + label {
-  outline: none;
-  box-shadow: 0px 0px 10px rgba(252, 185, 0, 0.7); /* Активная подсветка */
+  border-color: #fcb900;
+  background-color: #fcb900;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(252, 185, 0, 0.5);
 }
 
 .radio-buttons img {
-  width: 60px;  /* Изменим размер картинок */
-  height: 60px;
+  width: 120px; /* Увеличены в 2 раза */
+  height: 120px;
   object-fit: contain;
   margin-bottom: 10px;
 }
 
-/* Ввод номера и надпись на одной строке */
+/* Ввод номера в строку с подписью */
 #transportSelection label[for="number"] {
   display: inline-block;
   margin-right: 10px;
@@ -104,7 +93,7 @@ h1 {
 input[type="number"] {
   padding: 10px 15px;
   font-size: 16px;
-  width: 250px; /* Сделаем поле ввода чуть длиннее */
+  width: 250px;
   margin-bottom: 20px;
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -119,8 +108,8 @@ input[type="number"]:focus {
 /* Кнопка подтверждения */
 button {
   padding: 12px 24px;
-  background-color: #fcb900; /* Желтый цвет кнопки, как на сайте Tinkoff */
-  color: white;
+  background-color: #fcb900;
+  color: #1a1a1a; /* Тёмный текст */
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -129,7 +118,7 @@ button {
 }
 
 button:hover {
-  background-color: #f8a800; /* Темно-желтый при наведении */
+  background-color: #f8a800;
 }
 
 button:disabled {
@@ -137,7 +126,16 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Стили для контейнера с изображением */
+/* Сканер */
+#reader {
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  margin-top: 20px;
+  display: none;
+}
+
+/* Изображение перед сканированием */
 #scanContainer {
   display: none;
   margin-top: 20px;
@@ -155,15 +153,6 @@ button:disabled {
 
 #scanImage:hover {
   transform: scale(1.05);
-}
-
-/* Сканер */
-#reader {
-  width: 100%;
-  max-width: 500px;
-  height: 300px;
-  margin-top: 20px;
-  display: none;
 }
 
 /* Анимация загрузки */
