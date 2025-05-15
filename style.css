@@ -128,3 +128,21 @@ button:active {
 #paymentDetails {
   margin-top: 30px;
 }
+
+#scanContainer {
+  width: 120px; /* Ширина контейнера */
+  height: 120px; /* Высота контейнера */
+  border-radius: 15px; /* Скругление углов */
+  overflow: hidden; /* Чтобы картинка не выходила за пределы контейнера */
+  margin: 0 auto; /* Центрируем контейнер */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* Цвет фона контейнера */
+}
+
+#scanImage {
+  width: 100%; /* Картинка занимает всю ширину контейнера */
+  height: 100%; /* Картинка занимает всю высоту контейнера */
+  object-fit: cover; /* Картинка заполняет контейнер, сохраняя пропорции */
+}
