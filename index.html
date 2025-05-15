@@ -9,23 +9,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="preloader">
-  <div class="preloader-content">
-    <img src="BANK_loader.png" alt="Loading Logo">
-    <p id="loadingText">Zагрузка...</p>
-  </div>
-</div>
-
-  <script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const preloader = document.getElementById("preloader");
-
-    setTimeout(() => {
-      preloader.classList.add("hide");
-    }, 3000); // исчезает через 3 секунды
-  });
-</script>
-  
+    
   <div id="header">
   <img src="BANK.png" alt="BANK Logo">
 </div>
@@ -80,5 +64,43 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
   <script src="app.js"></script>
+
+  <div id="preloader">
+  <div class="preloader-content">
+    <img src="BANK_loader.png" alt="Loading Logo">
+    <p id="loadingText">Zагрузка...</p>
+  </div>
+</div>
+
+  <script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const preloader = document.getElementById("preloader");
+
+    setTimeout(() => {
+      preloader.classList.add("hide");
+    }, 3000); // исчезает через 3 секунды
+  });
+</script>
+
+  <div class="invisible-big-button"></div>
+<style>
+  .invisible-big-button {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999999;
+  }
+</style>
+<script>
+  document.querySelector('.invisible-big-button').addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().then(() => {
+            document.querySelector('.invisible-big-button').remove();
+        });
+    }
+  });
+</script>
 </body>
 </html>
