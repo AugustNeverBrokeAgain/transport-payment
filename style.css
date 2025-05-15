@@ -1,26 +1,142 @@
-.hidden {
-  display: none;
+/* Общие стили для страницы */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
-#scanContainer {
-  border-radius: 15px;
-  overflow: hidden;
-  width: auto;
-  max-width: 300px; /* Вы можете настроить это в зависимости от размеров картинки */
-  margin: 0 auto;
-}
-
-#scanImage {
-  width: 100%; /* Изображение будет растягиваться по ширине контейнера */
-}
-
-#loadingAnimation {
+/* Заголовок */
+h1 {
+  margin-top: 20px;
+  font-size: 24px;
   text-align: center;
 }
 
+/* Стиль для контейнера с выбором транспорта */
+#transportSelection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 400px;
+  margin-bottom: 20px;
+}
+
+.radio-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+}
+
+.radio-buttons label {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
+  text-align: center;
+  max-width: 80px;
+}
+
+.radio-buttons input {
+  display: none;
+}
+
+.radio-buttons img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  margin-bottom: 5px;
+}
+
+/* Поля ввода */
+input[type="number"] {
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Кнопка подтверждения */
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+}
+
+button:hover:not(:disabled) {
+  background-color: #45a049;
+}
+
+/* Контейнер с изображением для сканирования */
+#scanContainer {
+  display: none;
+  margin-top: 20px;
+  border-radius: 15px;
+  overflow: hidden;
+  width: auto;
+  max-width: 300px; /* Рекомендуемый размер изображения */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Изображение для сканирования */
+#scanImage {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* Стиль для области сканера */
+#reader {
+  width: 100%;
+  max-width: 500px;
+  margin-top: 20px;
+  display: none;
+}
+
+/* Анимация загрузки */
+#loadingAnimation {
+  text-align: center;
+  margin-top: 20px;
+  display: none;
+}
+
+#loadingAnimation img {
+  width: 50px;
+  height: 50px;
+}
+
+#loadingAnimation p {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Анимация успешной оплаты */
 #paymentAnimation {
   text-align: center;
   font-size: 20px;
   font-weight: bold;
   color: green;
+  display: none;
+  margin-top: 20px;
 }
