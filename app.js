@@ -93,5 +93,5 @@ function stopScanning() {
   // Убираем прелоадер через 3 секунды
   setTimeout(() => {
     preloader.classList.add("hide");
-  }, 3000);
+  }, 3);
 }
