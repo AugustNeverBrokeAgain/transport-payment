@@ -15,7 +15,7 @@ const onScanSuccess = (decodedText, decodedResult) => {
   qrContent.textContent = decodedText;
   resultContainer.classList.remove("hidden");
 
-  // Остановить сканирование (но не прерываем дальнейшую логику)
+  // Остановить сканирование
   html5QrCode.stop().then(() => {
     reader.classList.add("hidden");
   }).catch(err => {
