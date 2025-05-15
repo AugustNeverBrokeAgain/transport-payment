@@ -251,3 +251,7 @@ button:disabled {
   font-weight: bold;
   margin-top: 20px;
 }
+
+.hidden {
+  display: none;
+}
