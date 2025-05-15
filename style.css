@@ -1,169 +1,26 @@
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #f8f9fa;
-  color: #333;
-  text-align: center;
-  padding: 30px;
-  margin: 0;
-}
-
-#header {
-  width: 100%;
-  height: 20vh;
-  background-image: url('BANK.png');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  margin-bottom: 20px;
-}
-
-h1 {
-  color: #1d3557;
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 30px;
-}
-
-#transportSelection {
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 30px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  margin-bottom: 30px;
-  display: inline-block;
-  width: 90%;
-  max-width: 600px;
-}
-
-.radio-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 20px;
-  flex-wrap: nowrap;
-}
-
-.radio-buttons input[type="radio"] {
+.hidden {
   display: none;
 }
 
-.radio-buttons label {
-  width: 30%;
-  aspect-ratio: 1 / 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.radio-buttons label img {
-  width: 60%;
-  height: auto;
-  margin-bottom: 10px;
-}
-
-.radio-buttons input[type="radio"]:checked + label {
-  background-color: #ffcc00;
-  border-color: #ffcc00;
-  color: #000;
-  box-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
-}
-
-.radio-buttons label:hover {
-  border-color: #ffcc00;
-  box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
-}
-
-input[type="number"], button {
-  margin: 12px;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  outline: none;
-  transition: all 0.3s ease;
-}
-
-input[type="number"]:hover, button:hover {
-  border-color: #ffcc00;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-button {
-  background-color: #ffcc00;
-  color: #000;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s, transform 0.3s ease;
-}
-
-button:hover {
-  background-color: #e6b800;
-  transform: scale(1.05);
-}
-
-button:active {
-  background-color: #cc9e00;
-  box-shadow: none;
-}
-
-#scanButton {
-  margin-top: 30px;
-}
-
-#animation {
-  display: none;
-}
-
-#paymentDetails {
-  margin-top: 30px;
-}
-
-/* Стиль для контейнера с картинкой */
 #scanContainer {
-  display: none; /* Скрыть контейнер с картинкой по умолчанию */
-  width: auto; /* Размер контейнера будет зависеть от размера изображения */
-  height: auto; /* Размер контейнера будет зависеть от размера изображения */
-  margin: 0 auto; /* Центрируем контейнер */
-  border-radius: 15px; /* Скругление углов */
+  border-radius: 15px;
+  overflow: hidden;
+  width: auto;
+  max-width: 300px; /* Вы можете настроить это в зависимости от размеров картинки */
+  margin: 0 auto;
 }
 
-/* Картинка внутри контейнера */
 #scanImage {
-  width: 100%; /* Картинка займет весь контейнер */
-  height: auto; /* Картинка сохранит пропорции */
-  object-fit: contain; /* Картинка будет помещена в контейнер без искажения */
+  width: 100%; /* Изображение будет растягиваться по ширине контейнера */
 }
 
-/* Анимация загрузки */
 #loadingAnimation {
-  display: none; /* Скрыть анимацию загрузки по умолчанию */
   text-align: center;
 }
 
-#loadingImage {
-  width: 50px; /* Размер изображения загрузки */
-  height: 50px; /* Размер изображения загрузки */
-}
-
-/* Стиль для успешной оплаты */
 #paymentAnimation {
-  display: none; /* Скрыть анимацию успешной оплаты по умолчанию */
   text-align: center;
-}
-
-#paymentAnimation p {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   color: green;
 }
