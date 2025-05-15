@@ -85,7 +85,7 @@ function stopScanning() {
     loadingAnimation.classList.add("hidden");
     paymentAnimation.classList.remove("hidden");
   }, 4000);
-});
+};
 
 window.addEventListener("DOMContentLoaded", () => {
   const preloader = document.getElementById("preloader");
