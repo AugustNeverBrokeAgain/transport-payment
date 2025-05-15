@@ -5,7 +5,6 @@
   box-sizing: border-box;
 }
 
-/* Прелоадер */
 #preloader {
   position: fixed;
   top: 0;
@@ -17,18 +16,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 1;
+  visibility: visible;
   transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
 #preloader.hide {
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
 }
 
-.preloader-content {
-  text-align: center;
-}
-
+/* Пульсация */
 @keyframes pulse {
   0%, 100% {
     transform: scale(1);
@@ -36,6 +35,10 @@
   50% {
     transform: scale(1.08);
   }
+}
+
+.preloader-content {
+  text-align: center;
 }
 
 .preloader-content img {
