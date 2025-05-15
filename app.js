@@ -91,23 +91,20 @@ window.addEventListener("DOMContentLoaded", () => {
   const preloader = document.getElementById("preloader");
   const loadingText = document.getElementById("loadingText");
 
-  fetch("phrases.json")
-    .then(res => {
-      if (!res.ok) throw new Error("Файл не найден или ошибка сети");
-      return res.json();
-    })
-    .then(phrases => {
-      if (Array.isArray(phrases) && phrases.length > 0) {
-        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-        loadingText.textContent = randomPhrase;
-      } else {
-        loadingText.textContent = "Подготовка интерфейса...";
-      }
-    })
-    .catch(err => {
-      console.error("Ошибка при загрузке фраз:", err);
-      loadingText.textContent = "Загрузка...";
-    });
+  // Встроенный список фраз
+  const phrases = [
+  "Дрочим копейки...",
+  "Обновляем балансы...",
+  "Взламываем СБП, ахах",
+  "Ищем ненаход...",
+  "Ваши данные в пути...",
+  "Для тех, кто Z-нулся",
+  "Скоро всё загрузится..."
+  ];
+
+  // Случайная фраза
+  const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+  loadingText.textContent = randomPhrase;
 
   // Убираем прелоадер через 3 секунды
   setTimeout(() => {
