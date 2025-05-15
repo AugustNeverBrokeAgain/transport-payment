@@ -23,7 +23,7 @@ body {
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 10px; /* Уменьшенный отступ */
 }
 
 #header img {
@@ -38,7 +38,7 @@ h1 {
   font-size: 28px;
   color: #3e4a59;
   font-weight: 700;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
@@ -53,14 +53,14 @@ h1 {
   padding: 30px;
   width: 100%;
   max-width: 500px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .radio-buttons {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 10px; /* Уменьшенный отступ до ввода номера */
 }
 
 .radio-buttons label {
@@ -76,7 +76,7 @@ h1 {
   border-radius: 8px;
   height: 200px;
   width: 30%;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   background-color: #fff;
   border: 2px solid #ddd;
 }
@@ -86,10 +86,11 @@ h1 {
 }
 
 .radio-buttons input[type="radio"]:checked + label {
-  border-color: #fcb900;
-  background-color: #fcb900;
-  color: #fff;
-  box-shadow: 0 0 10px rgba(252, 185, 0, 0.5);
+  border-color: #ffdd2d;
+  background-color: #ffdd2d;
+  color: #1a1a1a;
+  box-shadow: 0 0 12px rgba(255, 221, 45, 0.6);
+  transform: scale(1.03); /* Эффект увеличения при выборе */
 }
 
 .radio-buttons img {
@@ -99,7 +100,7 @@ h1 {
   margin-bottom: 5px;
 }
 
-/* Ввод номера и надпись на одной строке */
+/* Ввод номера и надпись в строку */
 #transportSelection label[for="number"] {
   display: inline-block;
   margin-right: 10px;
@@ -124,22 +125,24 @@ input[type="number"]:focus {
 /* Кнопка подтверждения */
 button {
   padding: 12px 24px;
-  background-color: #fcb900;
+  background-color: #ffdd2d;
   color: #1a1a1a;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
-  background-color: #f8a800;
+  background-color: #f5ce00;
+  transform: scale(1.02);
 }
 
 button:disabled {
   background-color: #bbb;
   cursor: not-allowed;
+  color: #666;
 }
 
 /* Сканер */
