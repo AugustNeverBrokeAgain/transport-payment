@@ -87,10 +87,11 @@ function stopScanning() {
   }, 4000);
 });
 
-  window.addEventListener("load", () => {
+  window.addEventListener("DOMContentLoaded", () => {
   const preloader = document.getElementById("preloader");
+
+  // Убираем прелоадер через 3 секунды
   setTimeout(() => {
     preloader.classList.add("hide");
-  }, 300); // лёгкая задержка для плавности
-
+  }, 3000);
 }
