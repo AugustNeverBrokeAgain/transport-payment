@@ -3,36 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Обработка платежа</title>
+  <title>Оплата успешна</title>
 
+  <!-- Шрифт Roboto -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Стили для прелоадера -->
   <link rel="stylesheet" href="success.css">
 </head>
 <body>
-  <!-- Прелоадер -->
+
   <div id="successPreloader">
     <div class="preloader-content">
-      <img src="load.gif" alt="Загрузка..." />
-      <p>Обработка платежа...</p>
+      <img src="load.gif" alt="Загрузка...">
+      <p class="wave-text">
+        <span>О</span><span>б</span><span>р</span><span>а</span><span>б</span><span>о</span><span>т</span><span>к</span><span>а</span>
+        <span>&nbsp;</span>
+        <span>п</span><span>л</span><span>а</span><span>т</span><span>е</span><span>ж</span><span>а</span><span>...</span>
+      </p>
     </div>
   </div>
 
-  <!-- Сообщение об успешной оплате -->
-  <div id="paymentMessage" class="payment-message hidden">
-    <h1>29₽</h1>
-    <p>Оплата успешна!</p>
+  <div class="payment-message hidden">
+    <h1>Оплата прошла успешно</h1>
+    <p>Спасибо за использование СБП</p>
   </div>
 
   <script>
     window.addEventListener("DOMContentLoaded", () => {
       const preloader = document.getElementById("successPreloader");
-      const paymentMessage = document.getElementById("paymentMessage");
+      const message = document.querySelector(".payment-message");
 
       setTimeout(() => {
         preloader.classList.add("hide");
-        paymentMessage.classList.remove("hidden");
-      }, 4000);
+        message.classList.remove("hidden");
+      }, 4000); // 4 секунды до показа сообщения
     });
   </script>
+
 </body>
 </html>
