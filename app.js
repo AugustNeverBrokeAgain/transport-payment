@@ -7,27 +7,31 @@ const loadingAnimation = document.getElementById('loadingAnimation');
 const paymentAnimation = document.getElementById('paymentAnimation');
 let html5QrCode; // Глобальная переменная для сканера
 
+// Обработчик события для кнопки "Подтвердить"
 confirmButton.addEventListener('click', () => {
   const transport = document.querySelector('input[name="transport"]:checked');
   const enteredNumber = document.getElementById('number').value.trim();
 
+  // Проверяем, выбрано ли транспортное средство и введен ли номер
   if (!transport || enteredNumber === '') {
     alert('Пожалуйста, выберите транспорт и введите номер.');
     return;
   }
 
+  // Скрываем выбор транспорта и показываем кнопку сканирования и картинку
   transportSelection.style.display = 'none';
   scanButton.style.display = 'inline';
   scanContainer.style.display = 'block'; // Показываем контейнер с картинкой
 });
 
+// Обработчик для кнопки "Сканировать QR-код"
 scanButton.addEventListener("click", () => {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     alert("Ваш браузер не поддерживает доступ к камере.");
     return;
   }
 
-  // Запрос доступа к камере
+  // Запрашиваем доступ к камере
   navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
       // Останавливаем поток камеры сразу после получения разрешения
@@ -49,7 +53,8 @@ scanButton.addEventListener("click", () => {
         alert("Не удалось запустить сканирование.");
       });
 
-      scanButton.disabled = true; // Отключаем кнопку на время сканирования
+      // Отключаем кнопку сканирования на время
+      scanButton.disabled = true;
 
       // Закрытие сканера через 10 секунд
       setTimeout(() => {
@@ -61,15 +66,18 @@ scanButton.addEventListener("click", () => {
     });
 });
 
+// Обработчик успешного сканирования QR-кода
 const onScanSuccess = (decodedText, decodedResult) => {
   console.log("QR-код распознан:", decodedText);
   stopScanning();
 };
 
+// Обработчик ошибки сканирования QR-кода
 const onScanFailure = error => {
   console.warn("Ошибка сканирования:", error);
 };
 
+// Функция для остановки сканирования и редиректа
 function stopScanning() {
   html5QrCode.stop().then(() => {
     reader.style.display = 'none';
@@ -80,34 +88,21 @@ function stopScanning() {
   // Показать анимацию загрузки
   loadingAnimation.classList.remove("hidden");
 
-  // Через 4 секунды показать успешную оплату
+  // После 4 секунд показать успешную оплату и редирект на success.html
   setTimeout(() => {
     loadingAnimation.classList.add("hidden");
     paymentAnimation.classList.remove("hidden");
+
+    // Перенаправляем пользователя на страницу успеха через 10 секунд
+    window.location.href = "success.html"; // Редирект на success.html
   }, 4000);
 };
 
 window.addEventListener("DOMContentLoaded", () => {
   const preloader = document.getElementById("preloader");
-  const loadingText = document.getElementById("loadingText");
-
-  // Встроенный список фраз
-  const phrases = [
-  "Дрочим копейки...",
-  "Обновляем балансы...",
-  "Взламываем СБП, ахах",
-  "Ищем ненаход...",
-  "Ваши данные в пути...",
-  "Для тех, кто Z-нулся",
-  "Скоро всё загрузится..."
-  ];
-
-  // Случайная фраза
-  const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-  loadingText.textContent = randomPhrase;
 
   // Убираем прелоадер через 3 секунды
   setTimeout(() => {
     preloader.classList.add("hide");
-  }, 3000);
+  }, 3000); // исчезает через 3 секунды
 });
