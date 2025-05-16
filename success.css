@@ -103,7 +103,7 @@ body {
   border-top-right-radius: 15px;
   padding: 30px 20px 50px; /* больше паддинга снизу, чтобы логотип не перекрывал текст */
   text-align: center;
-  height: 91px; /* увеличено для баланса */
+  height: 75px; /* увеличено для баланса */
   display: flex;
   align-items: flex-start;
   justify-content: center;
