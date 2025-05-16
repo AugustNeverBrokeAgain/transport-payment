@@ -95,17 +95,18 @@ body {
 
 /* 2-й блок */
 
+/* Контейнер даты должен быть относительно позиционирован */
 .datetime-block {
-  display: flex;
-  justify-content: center; /* Центрируем все элементы по горизонтали */
-  align-items: top; /* Центрируем элементы по вертикали */
+  position: relative;
   background-color: #ffdd2f;
-  border: 4px solid #ffdd2f;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  padding: 30px 20px 10px 20px;
-  height: 90px;
-  position: relative;
+  padding: 30px 20px 50px; /* больше паддинга снизу, чтобы логотип не перекрывал текст */
+  text-align: center;
+  height: 130px; /* увеличено для баланса */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .datetime {
@@ -117,18 +118,20 @@ body {
 
 /* Логотип */
 
-.logo-block {
-  display: flex;
-  justify-content: center;
-  margin: -20px 0 -20px;
-}
-
-.logo {
+/* В логотипе нет отдельного блока, он позиционируется абсолютно */
+.logo-floating {
   width: 90px;
   height: 90px;
   border-radius: 50%;
   border: 4px solid #f1f1f1;
   object-fit: cover;
+  
+  position: absolute;
+  bottom: -45px; /* половина высоты логотипа */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #fff; /* фон вокруг логотипа, чтобы маскировать фон блоков */
+  z-index: 2;
 }
 
 /* 3-й блок */
