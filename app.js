@@ -7,40 +7,34 @@ const loadingAnimation = document.getElementById('loadingAnimation');
 const paymentAnimation = document.getElementById('paymentAnimation');
 let html5QrCode; // Глобальная переменная для сканера
 
-// Обработчик события для кнопки "Подтвердить"
+// Кнопка подтверждения выбора транспорта и номера
 confirmButton.addEventListener('click', () => {
   const transport = document.querySelector('input[name="transport"]:checked');
   const enteredNumber = document.getElementById('number').value.trim();
 
-  // Проверяем, выбрано ли транспортное средство и введен ли номер
   if (!transport || enteredNumber === '') {
     alert('Пожалуйста, выберите транспорт и введите номер.');
     return;
   }
 
-  // Скрываем выбор транспорта и показываем кнопку сканирования и картинку
   transportSelection.style.display = 'none';
   scanButton.style.display = 'inline';
-  scanContainer.style.display = 'block'; // Показываем контейнер с картинкой
+  scanContainer.style.display = 'block';
 });
 
-// Обработчик для кнопки "Сканировать QR-код"
+// Кнопка запуска сканера
 scanButton.addEventListener("click", () => {
   if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
     alert("Ваш браузер не поддерживает доступ к камере.");
     return;
   }
 
-  // Запрашиваем доступ к камере
   navigator.mediaDevices.getUserMedia({ video: true })
     .then(stream => {
-      // Останавливаем поток камеры сразу после получения разрешения
       stream.getTracks().forEach(track => track.stop());
 
-      // Показываем область сканера
       reader.style.display = 'block';
 
-      // Инициализируем и запускаем сканер
       html5QrCode = new Html5Qrcode("reader");
 
       html5QrCode.start(
@@ -53,10 +47,9 @@ scanButton.addEventListener("click", () => {
         alert("Не удалось запустить сканирование.");
       });
 
-      // Отключаем кнопку сканирования на время
       scanButton.disabled = true;
 
-      // Закрытие сканера через 10 секунд
+      // Остановка сканера и редирект через 10 секунд
       setTimeout(() => {
         stopScanning();
       }, 10000);
@@ -66,18 +59,18 @@ scanButton.addEventListener("click", () => {
     });
 });
 
-// Обработчик успешного сканирования QR-кода
+// Успешное сканирование
 const onScanSuccess = (decodedText, decodedResult) => {
   console.log("QR-код распознан:", decodedText);
   stopScanning();
 };
 
-// Обработчик ошибки сканирования QR-кода
+// Ошибка сканирования
 const onScanFailure = error => {
   console.warn("Ошибка сканирования:", error);
 };
 
-// Функция для остановки сканирования и редиректа
+// Завершение сканирования и редирект
 function stopScanning() {
   html5QrCode.stop().then(() => {
     reader.style.display = 'none';
@@ -85,24 +78,41 @@ function stopScanning() {
     console.error("Ошибка остановки сканера:", err);
   });
 
-  // Показать анимацию загрузки
+  scanContainer.style.display = 'none';
+  scanButton.style.display = 'none';
+
   loadingAnimation.classList.remove("hidden");
 
-  // После 4 секунд показать успешную оплату и редирект на success.html
   setTimeout(() => {
     loadingAnimation.classList.add("hidden");
     paymentAnimation.classList.remove("hidden");
 
-    // Перенаправляем пользователя на страницу успеха через 10 секунд
-    window.location.href = "success.html"; // Редирект на success.html
+    // Редирект на success.html
+    window.location.href = "success.html";
   }, 4000);
-};
+}
 
+// Прелоадер с фразами
 window.addEventListener("DOMContentLoaded", () => {
   const preloader = document.getElementById("preloader");
+  const loadingText = document.getElementById("loadingText");
 
-  // Убираем прелоадер через 3 секунды
+  const phrases = [
+    "Дрочим копейки...",
+    "Обновляем балансы...",
+    "Взламываем СБП, ахах",
+    "Ищем ненаход...",
+    "Ваши данные в пути...",
+    "Для тех, кто Z-нулся",
+    "Скоро всё загрузится..."
+  ];
+
+  const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+  if (loadingText) {
+    loadingText.textContent = randomPhrase;
+  }
+
   setTimeout(() => {
     preloader.classList.add("hide");
-  }, 3000); // исчезает через 3 секунды
+  }, 3000);
 });
