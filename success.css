@@ -67,40 +67,42 @@ body {
 }
 
 /* 1-й блок */
-
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f2f2f2; /* немного светлее */
-  padding: 15px 20px;
+  background-color: #3d3d3d;
+  padding: 25px 20px;
   position: relative;
-}
-
-.close-text {
-  color: #555;
-  font-size: 16px;
-  cursor: pointer;
 }
 
 .title {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
-  color: #000;
+  color: #0f0f0f;
   margin: 0;
+}
+
+.close-text {
+  color: #1e2331;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 /* 2-й блок */
 
 .datetime-block {
-  background-color: #ffdd2d;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  padding: 25px 20px;
-  text-align: center;
+  background-color: #c7b245;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 30px 20px 10px 20px;
+  text-align: left;
+  height: 110px;
+  display: flex;
+  align-items: flex-start;
 }
 
 .datetime {
@@ -109,17 +111,20 @@ body {
   color: #1a1a1a;
   margin: 0;
 }
+
 .logo-block {
-  text-align: center;
-  margin: -50px auto;
+  display: flex;
+  justify-content: center;
+  margin-top: -45px;
+  margin-bottom: 10px;
 }
 
 .logo {
-  width: 50px; /* уменьшен размер логотипа */
-  height: 50px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  border: 3px solid white;
-  margin-top: 20px;
+  border: 4px solid white;
+  object-fit: cover;
 }
 
 /* 3-й блок */
@@ -135,7 +140,10 @@ body {
 }
 
 .payment-method {
-  font-size: 18px;
+  color: #7b7b7b;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 5px 0;
 }
 
 .amount {
@@ -146,10 +154,10 @@ body {
 
 /* 4-й блок */
 .transfer-block {
-  background-color: #e6e6e6;
+  background-color: #ffffff;
+  padding: 20px;
   display: flex;
   justify-content: space-between;
-  padding: 15px;
   align-items: center;
 }
 
