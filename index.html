@@ -79,7 +79,36 @@
     setTimeout(() => {
       preloader.classList.add("hide");
     }, 3000); // исчезает через 3 секунды
+
+    // Обработчик нажатия на кнопку "Подтвердить"
+    const confirmButton = document.getElementById('confirmButton');
+    
+    confirmButton.addEventListener('click', () => {
+      // Получаем выбранный транспорт
+      const selectedTransport = document.querySelector('input[name="transport"]:checked');
+      const transportValue = selectedTransport ? selectedTransport.value : null;
+
+      // Получаем номер
+      const numberValue = document.getElementById('number').value;
+
+      // Сохраняем данные в localStorage
+      if (transportValue && numberValue) {
+        localStorage.setItem('selectedTransport', transportValue);
+        localStorage.setItem('number', numberValue);
+        alert(`Данные сохранены: Транспорт - ${transportValue}, Номер - ${numberValue}`);
+      } else {
+        alert("Пожалуйста, выберите транспорт и введите номер.");
+      }
+    });
   });
+  </script>
+
+  <script>
+    // Прячем кнопку "Сканировать QR-код" и контейнер для сканера по умолчанию
+    const scanContainer = document.getElementById('scanContainer');
+    const reader = document.getElementById('reader');
+    scanContainer.style.display = 'none';
+    reader.style.display = 'none';
   </script>
 
 </body>
