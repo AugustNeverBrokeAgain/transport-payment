@@ -8,7 +8,7 @@
 /* Общие стили */
 body {
   font-family: 'TT Firs Neue', sans-serif; /* Шрифт изменен на TT Firs Neue */
-  background-color: black;
+  background-color: #f3f3f3;
   margin: 0;
   padding: 0;
 }
@@ -46,17 +46,18 @@ body {
 .cancel-text {
   color: #007bff;
   cursor: pointer;
+   margin-top: -10px;
 }
 
 .title {
   font-weight: medium;
   color: black;
-  font-size: 18 px;
-  margin: 0;
+  font-size: 18px;
+  margin-top: -10px;
 }
 
 .share-icon {
-  width: 60px;
+  width: 50px;
   height: auto;
 }
 
@@ -69,6 +70,7 @@ body {
 .favicon {
   width: 50px;
   height: 50px;
+  
 }
 
 /* Четвертый блок */
@@ -77,7 +79,7 @@ body {
 }
 
 #datetime {
-  font-size: 18px;
+  font-size: 14px;
   color: #999; /* Сделали темнее */
   text-align: left;
   margin: 0;
