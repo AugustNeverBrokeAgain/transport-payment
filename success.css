@@ -136,10 +136,26 @@ body {
 }
 
 /* 3-й блок */
+
+/* Новый стиль для зачеркнутого текста */
+.old-amount {
+  font-size: 16px;
+  color: #7b7b7b;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+  margin-right: 5px;
+}
+
+/* Модификации блока payment-info */
 .payment-info {
   background-color: #f1f1f1;
   text-align: center;
   padding: 30px;
+  position: relative;
 }
 
 .payer-name {
