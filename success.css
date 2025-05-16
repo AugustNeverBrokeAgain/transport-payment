@@ -1,8 +1,106 @@
+/* Общие стили */
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #fff;
+  background-color: #f4f4f4;
+}
+
+/* 1-й блок: Заголовок */
+.header {
+  background-color: #333;
+  color: #00aaff;
+  padding: 20px;
+  text-align: center;
+}
+
+.close-text {
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* 2-й блок: Дата и время */
+.datetime-block {
+  background-color: #ffdd2d;
+  padding: 20px;
+  text-align: center;
+}
+
+.datetime {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+}
+
+/* 3-й блок: Логотип */
+.logo-block {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 5px solid white;
+}
+
+/* 4-й блок: Информация о платеже */
+.payment-info {
+  background-color: #e0e0e0;
+  padding: 20px;
+  text-align: center;
+}
+
+.payer-name {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.payment-method {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.amount {
+  font-size: 24px;
+  font-weight: bold;
+  color: #e74c3c;
+  margin: 0;
+}
+
+/* 5-й блок: Перевод со счета и кнопка */
+.transfer-block {
+  background-color: #dcdcdc;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transfer-text {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.documents-button {
+  background-color: #00aaff;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 500;
+}
+
+.documents-button:hover {
+  background-color: #0088cc;
 }
 
 /* Прелоадер */
