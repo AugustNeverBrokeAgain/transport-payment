@@ -2,17 +2,14 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Оплата успешна</title>
-
-  <!-- Шрифт Roboto -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <!-- Стили для success-прелоадера -->
   <link rel="stylesheet" href="success.css">
 </head>
 <body>
 
+  <!-- Прелоадер (оставляем без изменений) -->
   <div id="successPreloader">
     <div class="preloader-content">
       <img src="BANK_loader2.png" alt="Loader" class="top-loader">
@@ -21,10 +18,44 @@
     </div>
   </div>
 
-  <div class="payment-message hidden">
-    <h1>Оплата прошла успешно</h1>
-    <p>Спасибо за использование СБП</p>
+  <!-- Основная структура страницы -->
+  <div class="content">
+    <!-- 1-й блок: Заголовок -->
+    <div class="header">
+      <span class="close-text">Закрыть</span>
+      <h1 class="title">Операции</h1>
+    </div>
+
+    <!-- 2-й блок: Дата и время -->
+    <div class="datetime-block">
+      <p class="datetime" id="datetime"></p>
+    </div>
+
+    <!-- 3-й блок: Логотип -->
+    <div class="logo-block">
+      <img src="logo.jpg" alt="Logo" class="logo">
+    </div>
+
+    <!-- 4-й блок: Информация о платеже -->
+    <div class="payment-info">
+      <p class="payer-name">Никита И.</p>
+      <p class="payment-method">Оплата по СБП</p>
+      <p class="amount">-29₽</p>
+    </div>
+
+    <!-- 5-й блок: Перевод со счета и кнопка -->
+    <div class="transfer-block">
+      <span class="transfer-text">Перевод со счета</span>
+      <a href="/" class="documents-button">Документы</a>
+    </div>
   </div>
+
+  <script>
+    // Устанавливаем дату и время на момент загрузки страницы
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    document.getElementById('datetime').textContent = now.toLocaleString('ru-RU', options);
+  </script>
 
   <script>
     window.addEventListener("DOMContentLoaded", () => {
