@@ -99,15 +99,15 @@ body {
 .datetime-block {
   position: relative;
   background-color: #ffdd2f;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   padding: 30px 20px 50px; /* больше паддинга снизу, чтобы логотип не перекрывал текст */
   text-align: center;
   height: 130px; /* увеличено для баланса */
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  margin-top: -1px;
+  margin-top: -10px;
 }
 
 .datetime {
