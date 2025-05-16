@@ -8,7 +8,7 @@
 /* Общие стили */
 body {
   font-family: 'TT Firs Neue', sans-serif; /* Шрифт изменен на TT Firs Neue */
-  background-color: #f3f3f3;
+  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
 }
@@ -70,7 +70,7 @@ body {
 .favicon {
   width: 50px;
   height: 50px;
-  
+  margin-top: -20px;
 }
 
 /* Четвертый блок */
@@ -82,7 +82,7 @@ body {
   font-size: 14px;
   color: #999; /* Сделали темнее */
   text-align: left;
-  margin: 0;
+  margin-top: -30px;
 }
 
 /* Пятый блок */
@@ -91,6 +91,7 @@ body {
   padding: 20px;
   justify-content: space-between;
   align-items: center;
+  margin-top: -40px;
 }
 
 .left-column {
@@ -154,7 +155,7 @@ body {
   width: 300px;
   float: right;
   margin-bottom: 10px;
-  margin-top: -40px
+  margin-top: -70px
 }
 
 .receipt-number {
