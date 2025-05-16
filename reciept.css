@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'TT Firs Neue';
+  src: url(TTFirsNeue-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Общие стили */
 body {
   font-family: 'TT Firs Neue', sans-serif; /* Шрифт изменен на TT Firs Neue */
