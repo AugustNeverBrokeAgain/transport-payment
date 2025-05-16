@@ -209,3 +209,18 @@ body {
 .documents-button:hover {
   color: #0056b3;
 }
+
+/* Картинка SPB (иконка) */
+.spb-icon {
+  width: 20px;
+  height: auto;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+/* Убираем отступ и увеличиваем картинку del.jpg в 4 раза */
+.del-image {
+  width: 200px; /* увеличили размер в 4 раза */
+  height: auto;
+  margin-top: 0; /* убрали отступ */
+}
