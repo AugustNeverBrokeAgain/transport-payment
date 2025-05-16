@@ -3,28 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Оплата успешна</title>
+  <title>Обработка платежа</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  
-  <div id="header">
-    <img src="BANK.png" alt="BANK Logo">
+  <!-- Прелоадер для success.html -->
+  <div id="successPreloader">
+    <div class="preloader-content">
+      <img src="load.gif" alt="Загрузка..." />
+      <p>Обработка платежа...</p>
+    </div>
   </div>
 
-  <h1>Оплата успешна!</h1>
-  <p>Сумма: <strong>29₽</strong></p>
-  <p>Ваш платеж был успешно обработан.</p>
-  
-  <button id="backButton">Вернуться на главную</button>
-
   <script>
-    document.getElementById('backButton').addEventListener('click', () => {
-      window.location.href = 'index.html';  // Перенаправление обратно на главную страницу
+    window.addEventListener("DOMContentLoaded", () => {
+      // Через 4 секунды скрываем прелоадер и показываем успешную оплату
+      setTimeout(() => {
+        const preloader = document.getElementById("successPreloader");
+        preloader.classList.add("hide"); // Скрыть прелоадер
+
+        // Показываем сообщение об успешной оплате
+        const paymentMessage = document.createElement('div');
+        paymentMessage.innerHTML = `
+          <h1>29₽</h1>
+          <p>Оплата успешна!</p>
+        `;
+        document.body.appendChild(paymentMessage);
+      }, 4000); // Время работы прелоадера (4 секунды)
     });
   </script>
-
 </body>
 </html>
