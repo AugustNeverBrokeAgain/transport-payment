@@ -1,8 +1,7 @@
-/* Основной стиль страницы */
+/* Общие стили */
 body {
   font-family: 'Roboto', sans-serif;
   background-color: black;
-  color: black;
   margin: 0;
   padding: 0;
 }
@@ -11,16 +10,20 @@ body {
 .block-1 {
   background-color: #f2f2f2;
   max-width: 80%;
-  margin: 20px auto;
+  margin: 20px auto 0;
   padding: 15px;
   text-align: center;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
-/* Контейнер для всех блоков */
+/* Контейнер */
 .container {
-  width: 90%;
+  width: 95%;
   margin: 0 auto;
   background-color: white;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
 /* Второй блок */
@@ -29,7 +32,6 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #ffffff;
 }
 
 .cancel-text {
@@ -41,6 +43,7 @@ body {
   font-weight: bold;
   color: black;
   font-size: 24px;
+  margin: 0;
 }
 
 .share-icon {
@@ -68,12 +71,14 @@ body {
   font-size: 18px;
   color: #f2f2f2;
   text-align: left;
+  margin: 0;
 }
 
 /* Пятый блок */
 .block-5 {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px;
 }
 
@@ -92,21 +97,29 @@ body {
   width: 80%;
   height: 2px;
   background-color: #ffdd2f;
-  margin-top: 15px;
+  margin: 15px auto;
 }
 
-/* Шестой блок: две колонки */
+/* Шестой блок */
 .block-6 {
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  font-size: 14px;
 }
 
-.left-column, .right-column {
+.left-column {
   width: 45%;
+  text-align: left;
 }
 
-.left-column p, .right-column p {
+.right-column {
+  width: 45%;
+  text-align: right;
+}
+
+.left-column p,
+.right-column p {
   margin: 5px 0;
 }
 
@@ -116,14 +129,22 @@ body {
   text-align: center;
 }
 
+.pechat-img {
+  width: 60px;
+  float: right;
+  margin-bottom: 10px;
+}
+
 .receipt-number {
   font-size: 20px;
   font-weight: bold;
   color: black;
+  margin-top: 20px;
 }
 
 .support-text {
   color: #7b7b7b;
+  margin: 5px 0;
 }
 
 .support-email {
