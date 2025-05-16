@@ -114,20 +114,22 @@ body {
 /* Шестой блок */
 .block-6 {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   padding: 20px;
+  gap: 10px;
 }
 
 .left-column,
 .right-column {
-  width: 48%; /* Устанавливаем ширину каждой колонки */
-  line-height: 1.8; /* Увеличиваем интервал между строками */
+  width: 48%;
+  line-height: 2; /* увеличенный вертикальный интервал */
+  font-size: 14px;
 }
 
 .right-column {
-  text-align: right; /* Выравнивание текста по правому краю */
+  text-align: right;
 }
+
 
 /* Седьмой блок */
 .block-7 {
