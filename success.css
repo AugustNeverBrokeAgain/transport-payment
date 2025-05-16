@@ -1,4 +1,4 @@
-/* Прелоадер для success.html */
+/* Прелоадер */
 #successPreloader {
   position: fixed;
   top: 0;
@@ -10,10 +10,18 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+#successPreloader.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .preloader-content {
   text-align: center;
+  color: white;
 }
 
 .preloader-content img {
@@ -24,27 +32,27 @@
 
 .preloader-content p {
   font-size: 20px;
-  color: #fff;
   font-weight: 500;
-}
-
-/* Скрытие прелоадера */
-.hide {
-  display: none;
 }
 
 /* Сообщение об успешной оплате */
 .payment-message {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 100px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .payment-message h1 {
   font-size: 48px;
   color: #28a745;
+  margin-bottom: 10px;
 }
 
 .payment-message p {
   font-size: 24px;
   color: #28a745;
+}
+
+.hidden {
+  display: none;
 }
