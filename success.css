@@ -32,28 +32,32 @@ body {
 }
 
 .preloader-content img {
-  width: 120px;
-  height: 120px;
-  margin-bottom: 20px;
+  width: 160px;
+  height: 160px;
+  margin-bottom: 30px;
 }
 
-/* Волна для текста */
-.wave-text span {
-  display: inline-block;
-  animation: wave 1.4s infinite ease-in-out;
+/* Анимация текста — печатание по буквам */
+.typing-text {
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #1a1a1a;
+  width: 0;
+  margin: 0 auto;
+  animation: typing 2.5s steps(22) forwards, blink-caret 0.7s step-end infinite;
 }
 
-.wave-text span:nth-child(odd) {
-  animation-delay: 0.1s;
+@keyframes typing {
+  from { width: 0; }
+  to { width: 330px; }
 }
 
-.wave-text span:nth-child(even) {
-  animation-delay: 0.2s;
-}
-
-@keyframes wave {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: #1a1a1a; }
 }
 
 /* Сообщение об оплате */
