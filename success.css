@@ -1,106 +1,8 @@
-/* Общие стили */
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
-}
-
-/* 1-й блок: Заголовок */
-.header {
-  background-color: #333;
-  color: #00aaff;
-  padding: 20px;
-  text-align: center;
-}
-
-.close-text {
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.title {
-  font-size: 24px;
-  font-weight: bold;
-  margin: 0;
-}
-
-/* 2-й блок: Дата и время */
-.datetime-block {
-  background-color: #ffdd2d;
-  padding: 20px;
-  text-align: center;
-}
-
-.datetime {
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0;
-}
-
-/* 3-й блок: Логотип */
-.logo-block {
-  text-align: center;
-  margin: 20px 0;
-}
-
-.logo {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 5px solid white;
-}
-
-/* 4-й блок: Информация о платеже */
-.payment-info {
-  background-color: #e0e0e0;
-  padding: 20px;
-  text-align: center;
-}
-
-.payer-name {
-  font-size: 20px;
-  font-weight: 600;
-  margin: 0;
-}
-
-.payment-method {
-  font-size: 18px;
-  margin: 10px 0;
-}
-
-.amount {
-  font-size: 24px;
-  font-weight: bold;
-  color: #e74c3c;
-  margin: 0;
-}
-
-/* 5-й блок: Перевод со счета и кнопка */
-.transfer-block {
-  background-color: #dcdcdc;
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.transfer-text {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.documents-button {
-  background-color: #00aaff;
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: 500;
-}
-
-.documents-button:hover {
-  background-color: #0088cc;
+  background-color: #fff;
 }
 
 /* Прелоадер */
@@ -127,39 +29,24 @@ body {
 .preloader-content {
   text-align: center;
   color: #1a1a1a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-/* Изображение BANK_loader2.png (сверху) */
+
 .top-loader {
-  width: 200px; /* Увеличиваем размер */
+  width: 100px; /* или ваш предпочтительный размер */
   height: auto;
-  margin-bottom: 20px; /* Отступ между картинками */
+  margin-bottom: 10px;
 }
 
-/* Изображение load.gif (снизу) */
 .bottom-loader {
-  width: 150px; /* Размер для load.gif */
+  width: 150px; /* размер для load.gif */
   height: auto;
-  animation: rotateGif 2s ease-in-out forwards; /* Добавляем анимацию поворота */
-}
-
-/* Анимация поворота картинки на 180 градусов */
-@keyframes rotateGif {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(180deg);
-  }
 }
 
 /* Анимация текста — печатание по буквам */
 .typing-text {
-  font-size: 22px; /* Увеличиваем размер шрифта */
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 700;
   text-transform: uppercase;
   overflow: hidden;
   white-space: nowrap;
@@ -179,23 +66,90 @@ body {
   50% { border-color: #1a1a1a; }
 }
 
-/* Сообщение об оплате */
-.payment-message {
-  text-align: center;
-  margin-top: 100px;
+/* 1-й блок */
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #333;
+  color: #00aaff;
+  padding: 20px;
 }
 
-.payment-message h1 {
-  font-size: 48px;
-  color: #28a745;
-  margin-bottom: 10px;
+.close-text {
+  font-size: 18px;
 }
 
-.payment-message p {
+.title {
   font-size: 24px;
-  color: #28a745;
+  font-weight: bold;
+  color: #000;
 }
 
-.hidden {
-  display: none;
+/* 2-й блок */
+.datetime-block {
+  background-color: #ffdd2d;
+  padding: 10px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.logo-block {
+  text-align: center;
+  margin: -50px auto;
+}
+
+.logo {
+  width: 50px; /* уменьшен размер логотипа */
+  height: 50px;
+  border-radius: 50%;
+  border: 3px solid white;
+  margin-top: 20px;
+}
+
+/* 3-й блок */
+.payment-info {
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 30px;
+}
+
+.payer-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.payment-method {
+  font-size: 18px;
+}
+
+.amount {
+  font-size: 36px;
+  font-weight: bold;
+  color: black;
+}
+
+/* 4-й блок */
+.transfer-block {
+  background-color: #e6e6e6;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  align-items: center;
+}
+
+.transfer-text {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.documents-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.documents-button:hover {
+  background-color: #218838;
 }
