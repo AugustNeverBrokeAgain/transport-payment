@@ -6,11 +6,10 @@
   <title>Обработка платежа</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css"> <!-- Общий стиль -->
-  <link rel="stylesheet" href="success.css"> <!-- Новый стиль для success.html -->
+  <link rel="stylesheet" href="success.css">
 </head>
 <body>
-  <!-- Прелоадер для success.html -->
+  <!-- Прелоадер -->
   <div id="successPreloader">
     <div class="preloader-content">
       <img src="load.gif" alt="Загрузка..." />
@@ -18,21 +17,21 @@
     </div>
   </div>
 
+  <!-- Сообщение об успешной оплате -->
+  <div id="paymentMessage" class="payment-message hidden">
+    <h1>29₽</h1>
+    <p>Оплата успешна!</p>
+  </div>
+
   <script>
     window.addEventListener("DOMContentLoaded", () => {
-      // Через 4 секунды скрываем прелоадер и показываем успешную оплату
-      setTimeout(() => {
-        const preloader = document.getElementById("successPreloader");
-        preloader.classList.add("hide"); // Скрыть прелоадер
+      const preloader = document.getElementById("successPreloader");
+      const paymentMessage = document.getElementById("paymentMessage");
 
-        // Показываем сообщение об успешной оплате
-        const paymentMessage = document.createElement('div');
-        paymentMessage.innerHTML = `
-          <h1>29₽</h1>
-          <p>Оплата успешна!</p>
-        `;
-        document.body.appendChild(paymentMessage);
-      }, 4000); // Время работы прелоадера (4 секунды)
+      setTimeout(() => {
+        preloader.classList.add("hide");
+        paymentMessage.classList.remove("hidden");
+      }, 4000);
     });
   </script>
 </body>
