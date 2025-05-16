@@ -2,13 +2,9 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Оплата успешна</title>
-
-  <!-- Шрифт Roboto -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <!-- Стили для success-прелоадера -->
   <link rel="stylesheet" href="success.css">
 </head>
 <body>
@@ -22,26 +18,58 @@
     </div>
   </div>
 
-  <div class="payment-message hidden">
-    <h1>Оплата прошла успешно</h1>
-    <p>Спасибо за использование СБП</p>
-  </div>
-
-  <div class="payment-info">
-    <div class="payment-block">
-      <p><strong>Транспорт:</strong> <span id="transportDisplay"></span></p>
-      <p><strong>Номер:</strong> <span id="numberDisplay"></span></p>
+  <!-- Основная структура страницы -->
+  <div class="content">
+    <!-- 1-й блок -->
+    <div class="header">
+      <span class="close-text">Закрыть</span>
+      <h1 class="title">Операции</h1>
     </div>
 
-    <div class="payment-block">
-      <p><strong>Сумма:</strong> <span id="amount">-29₽</span></p>
+    <!-- 2-й блок -->
+    <div class="datetime-block">
+      <p class="datetime" id="datetime"></p>
+    </div>
+
+    <!-- 3-й блок: Логотип поверх двух блоков -->
+    <div class="logo-block">
+      <img src="logo.jpg" alt="Logo" class="logo">
+    </div>
+
+    <!-- 4-й блок: Информация о платеже -->
+    <div class="payment-info">
+      <p class="payer-name">Никита И.</p>
+      <p class="payment-method" id="paymentMethod">Оплата по СБП</p>
+      <p><strong>Транспорт:</strong> <span id="transportDisplay"></span></p>
+      <p><strong>Номер:</strong> <span id="numberDisplay"></span></p>
+      <p class="amount">-29₽</p>
+    </div>
+
+    <!-- 5-й блок -->
+    <div class="transfer-block">
+      <span class="transfer-text">Перевод со счета</span>
+      <a href="/" class="documents-button">Документы</a>
     </div>
   </div>
 
   <script>
+    // Устанавливаем дату и время на момент загрузки страницы
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    document.getElementById('datetime').textContent = now.toLocaleString('ru-RU', options);
+
+    // Извлекаем данные из localStorage
+    const transport = localStorage.getItem('transport');
+    const number = localStorage.getItem('number');
+
+    // Если данные есть, выводим их в нужном месте
+    if (transport && number) {
+      document.getElementById('paymentMethod').textContent = `Оплата по СБП · ${transport} ${number}`;
+    }
+
+    <script>
     window.addEventListener("DOMContentLoaded", () => {
       const preloader = document.getElementById("successPreloader");
-      const message = document.querySelector(".payment-message");
       const transportDisplay = document.getElementById("transportDisplay");
       const numberDisplay = document.getElementById("numberDisplay");
 
@@ -61,14 +89,16 @@
       } else {
         numberDisplay.textContent = "Не указан";
       }
-
-      // Скрываем прелоадер и показываем сообщение об успешной оплате
+      
+    // Скрытие прелоадера через 3 секунды после загрузки страницы
+    window.addEventListener("DOMContentLoaded", () => {
+      const preloader = document.getElementById("successPreloader");
       setTimeout(() => {
         preloader.classList.add("hide");
-        message.classList.remove("hidden");
-      }, 4000);
+      }, 3000); // исчезает через 3 секунды
     });
   </script>
 
 </body>
 </html>
+
