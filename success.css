@@ -31,15 +31,20 @@ body {
   color: #1a1a1a;
 }
 
-.preloader-content img {
-  width: 160px;
-  height: 160px;
-  margin-bottom: 30px;
+
+.top-loader {
+  width: 100px; /* или ваш предпочтительный размер */
+  height: auto;
+  margin-bottom: 10px;
 }
 
+.bottom-loader {
+  width: 150px; /* размер для load.gif */
+  height: auto;
+}
 /* Анимация текста — печатание по буквам */
 .typing-text {
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 700;
   text-transform: uppercase;
   overflow: hidden;
