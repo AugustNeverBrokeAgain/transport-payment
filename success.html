@@ -64,6 +64,14 @@
     if (transport && number) {
       document.getElementById('paymentMethod').textContent = `Оплата по СБП · ${transport} ${number}`;
     }
+
+    // Скрытие прелоадера через 3 секунды после загрузки страницы
+    window.addEventListener("DOMContentLoaded", () => {
+      const preloader = document.getElementById("successPreloader");
+      setTimeout(() => {
+        preloader.classList.add("hide");
+      }, 3000); // исчезает через 3 секунды
+    });
   </script>
 
 </body>
