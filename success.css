@@ -96,15 +96,16 @@ body {
 /* 2-й блок */
 
 .datetime-block {
+  display: flex;
+  justify-content: center; /* Центрируем все элементы по горизонтали */
+  align-items: center; /* Центрируем элементы по вертикали */
   background-color: #ffdd2f;
-  border: 4px;
+  border: 4px solid #ffdd2f;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   padding: 30px 20px 10px 20px;
-  text-align: center;
   height: 90px;
-  display: flex;
-  align-items: flex-start;
+  position: relative;
 }
 
 .datetime {
@@ -114,9 +115,15 @@ body {
   margin: 0;
 }
 
+/* Логотип */
+.logo-block {
+  position: absolute;
+  top: -50px;  /* Поднимем логотип */
+}
+
 .logo {
-  width: 100px;
-  height: 100px;
+  width: 150px;  /* Увеличим размер логотипа */
+  height: 150px;
   border-radius: 50%;
   border: 4px solid #f1f1f1;
   object-fit: cover;
