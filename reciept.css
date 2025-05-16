@@ -112,24 +112,24 @@ body {
 }
 
 /* Шестой блок */
-.block-6 {
+.columns-block {
   display: flex;
   justify-content: space-between;
   padding: 20px;
+  font-size: 14px;
+  line-height: 1.8;
   gap: 10px;
 }
 
-.left-column,
-.right-column {
-  width: 48%;
-  line-height: 2; /* увеличенный вертикальный интервал */
-  font-size: 14px;
+.column-left {
+  text-align: left;
+  width: 50%;
 }
 
-.right-column {
+.column-right {
   text-align: right;
+  width: 50%;
 }
-
 
 /* Седьмой блок */
 .block-7 {
