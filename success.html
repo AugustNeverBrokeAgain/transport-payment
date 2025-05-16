@@ -8,7 +8,7 @@
   <!-- Шрифт Roboto -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- Стили для прелоадера -->
+  <!-- Стили для success-прелоадера -->
   <link rel="stylesheet" href="success.css">
 </head>
 <body>
@@ -16,11 +16,7 @@
   <div id="successPreloader">
     <div class="preloader-content">
       <img src="load.gif" alt="Загрузка...">
-      <p class="wave-text">
-        <span>О</span><span>б</span><span>р</span><span>а</span><span>б</span><span>о</span><span>т</span><span>к</span><span>а</span>
-        <span>&nbsp;</span>
-        <span>п</span><span>л</span><span>а</span><span>т</span><span>е</span><span>ж</span><span>а</span><span>...</span>
-      </p>
+      <p class="typing-text">ОБРАБОТКА ПЛАТЕЖА...</p>
     </div>
   </div>
 
@@ -37,7 +33,7 @@
       setTimeout(() => {
         preloader.classList.add("hide");
         message.classList.remove("hidden");
-      }, 4000); // 4 секунды до показа сообщения
+      }, 4000);
     });
   </script>
 
