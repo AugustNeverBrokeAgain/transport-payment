@@ -224,6 +224,10 @@ button:disabled {
 }
 
 /* Анимация загрузки */
+.hidden {
+  display: none;
+}
+
 #loadingAnimation {
   display: none;
   text-align: center;
@@ -252,6 +256,4 @@ button:disabled {
   margin-top: 20px;
 }
 
-.hidden {
-  display: none;
-}
+
