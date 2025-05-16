@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Квитанция</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=TT+Firs+Neue:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="reciept.css">
 </head>
 <body>
@@ -14,9 +14,9 @@
     <p>.....................</p>
   </div>
 
-  <!-- Контейнер для последующих блоков -->
+  <!-- Контейнер для всех остальных блоков -->
   <div class="container">
-    
+
     <!-- Второй блок -->
     <div class="block-2">
       <span class="cancel-text">Отмена</span>
@@ -29,19 +29,24 @@
       <img src="favicon.ico" alt="Favicon" class="favicon">
     </div>
 
-    <!-- Четвертый блок: дата и время -->
+    <!-- Четвертый блок -->
     <div class="block-4">
       <p id="datetime"></p>
     </div>
 
-    <!-- Пятый блок: Итого -->
+    <!-- Пятый блок -->
     <div class="block-5">
-      <span class="total">Итого</span>
-      <span class="amount">29 ₽</span>
-      <div class="separator"></div>
+      <div class="left-column">
+        <span class="total">Итого</span>
+      </div>
+      <div class="right-column">
+        <span class="amount">29 ₽</span>
+      </div>
     </div>
 
-    <!-- Шестой блок: Две колонки -->
+    <div class="separator"></div>
+
+    <!-- Шестой блок -->
     <div class="block-6">
       <div class="left-column">
         <p>Покупка</p>
@@ -49,8 +54,8 @@
         <p>Сумма</p>
         <p>Магазин</p>
 
-        <p></p> <!-- пустая строка -->
-        <p></p> <!-- пустая строка -->
+        <p></p>
+        <p></p>
 
         <p>Счет списания</p>
         <p>Наименование ЮЛ или ИП</p>
@@ -62,8 +67,8 @@
         <p>29 ₽</p>
         <p>Оплата проезда на bilet.nspk.ru</p>
 
-        <p></p> <!-- пустая строка -->
-        <p></p> <!-- пустая строка -->
+        <p></p>
+        <p></p>
 
         <p>408178102000****1679</p>
         <p>АО "И-СЕТЬ"</p>
@@ -73,21 +78,30 @@
 
     <!-- Седьмой блок -->
     <div class="block-7">
+      <img src="pechat.png" alt="Печать" class="pechat-img">
+      <div class="separator"></div>
       <p class="receipt-number">Квитанция № 1-24-043-496-600</p>
       <p class="support-text">По вопросам зачисления обращайтесь к получателю</p>
       <p class="support-email">Служба поддержки <a href="mailto:fb@tbank.ru" class="support-email-link">fb@tbank.ru</a></p>
     </div>
+
   </div>
 
   <script>
-    // Установка даты и времени при загрузке страницы
+    // Отображаем текущую дату и время при загрузке
     window.addEventListener("DOMContentLoaded", () => {
       const now = new Date();
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      };
       document.getElementById('datetime').textContent = now.toLocaleString('ru-RU', options);
     });
   </script>
 
 </body>
 </html>
-
