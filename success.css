@@ -98,7 +98,7 @@ body {
 .datetime-block {
   display: flex;
   justify-content: center; /* Центрируем все элементы по горизонтали */
-  align-items: center; /* Центрируем элементы по вертикали */
+  align-items: top; /* Центрируем элементы по вертикали */
   background-color: #ffdd2f;
   border: 4px solid #ffdd2f;
   border-top-left-radius: 15px;
@@ -120,7 +120,7 @@ body {
 .logo-block {
   display: flex;
   justify-content: center;
-  margin: 10px 0 20px;
+  margin: -20px 0 -20px;
 }
 
 .logo {
