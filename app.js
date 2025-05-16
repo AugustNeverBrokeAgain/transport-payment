@@ -52,7 +52,7 @@ scanButton.addEventListener("click", () => {
       // Остановка сканера и редирект через 10 секунд
       setTimeout(() => {
         stopScanning();
-      }, 10000);
+      }, 5000);
     })
     .catch(error => {
       alert("Ошибка при доступе к камере.");
@@ -89,7 +89,7 @@ function stopScanning() {
 
     // Редирект на success.html
     window.location.href = "success.html";
-  }, 4000);
+  }, 1000);
 }
 
 // Прелоадер с фразами
