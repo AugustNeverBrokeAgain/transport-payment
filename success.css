@@ -107,6 +107,7 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  margin-top: -1px;
 }
 
 .datetime {
