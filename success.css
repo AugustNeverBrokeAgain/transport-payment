@@ -30,8 +30,8 @@ body {
   text-align: center;
   color: #1a1a1a;
   display: flex;
-  flex-direction: column; /* Вертикальное расположение картинок */
-  align-items: center; /* Центрируем изображения */
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Изображение BANK_loader2.png (сверху) */
@@ -45,11 +45,22 @@ body {
 .bottom-loader {
   width: 150px; /* Размер для load.gif */
   height: auto;
+  animation: rotateGif 2s ease-in-out forwards; /* Добавляем анимацию поворота */
+}
+
+/* Анимация поворота картинки на 180 градусов */
+@keyframes rotateGif {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
 }
 
 /* Анимация текста — печатание по буквам */
 .typing-text {
-  font-size: 16px; /* Уменьшаем размер шрифта */
+  font-size: 22px; /* Увеличиваем размер шрифта */
   font-weight: 500;
   text-transform: uppercase;
   overflow: hidden;
