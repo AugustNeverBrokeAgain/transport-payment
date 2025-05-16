@@ -33,7 +33,7 @@ body {
 
 
 .top-loader {
-  width: 100px; /* или ваш предпочтительный размер */
+  width: 200px; /* или ваш предпочтительный размер */
   height: auto;
   margin-bottom: 10px;
 }
