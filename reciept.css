@@ -1,0 +1,140 @@
+/* Основной стиль страницы */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: black;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+/* Первый блок */
+.block-1 {
+  background-color: #f2f2f2;
+  max-width: 80%;
+  margin: 20px auto;
+  padding: 15px;
+  text-align: center;
+}
+
+/* Контейнер для всех блоков */
+.container {
+  width: 90%;
+  margin: 0 auto;
+  background-color: white;
+}
+
+/* Второй блок */
+.block-2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.cancel-text {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.title {
+  font-weight: bold;
+  color: black;
+  font-size: 24px;
+}
+
+.share-icon {
+  width: 30px;
+  height: auto;
+}
+
+/* Третий блок */
+.block-3 {
+  text-align: center;
+  padding: 20px;
+}
+
+.favicon {
+  width: 50px;
+  height: 50px;
+}
+
+/* Четвертый блок */
+.block-4 {
+  padding: 20px;
+}
+
+#datetime {
+  font-size: 18px;
+  color: #f2f2f2;
+  text-align: left;
+}
+
+/* Пятый блок */
+.block-5 {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.total {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.amount {
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+}
+
+.separator {
+  width: 80%;
+  height: 2px;
+  background-color: #ffdd2f;
+  margin-top: 15px;
+}
+
+/* Шестой блок: две колонки */
+.block-6 {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.left-column, .right-column {
+  width: 45%;
+}
+
+.left-column p, .right-column p {
+  margin: 5px 0;
+}
+
+/* Седьмой блок */
+.block-7 {
+  padding: 20px;
+  text-align: center;
+}
+
+.receipt-number {
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+}
+
+.support-text {
+  color: #7b7b7b;
+}
+
+.support-email {
+  color: #7b7b7b;
+}
+
+.support-email-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.support-email-link:hover {
+  text-decoration: underline;
+}
