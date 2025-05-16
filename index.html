@@ -79,6 +79,36 @@
     setTimeout(() => {
       preloader.classList.add("hide");
     }, 3000); // исчезает через 3 секунды
+
+    // Обработчик нажатия кнопки "Подтвердить"
+    document.getElementById("confirmButton").addEventListener("click", () => {
+      const transportRadios = document.getElementsByName("transport");
+      const numberInput = document.getElementById("number");
+      let selectedTransport = null;
+
+      // Проверка, выбран ли транспорт
+      for (const radio of transportRadios) {
+        if (radio.checked) {
+          selectedTransport = radio.value;
+          break;
+        }
+      }
+
+      const transportNumber = numberInput.value;
+
+      // Проверка, что выбран транспорт и введен номер
+      if (!selectedTransport || !transportNumber) {
+        alert("Пожалуйста, выберите транспорт и введите номер.");
+        return;
+      }
+
+      // Сохраняем данные в localStorage
+      localStorage.setItem("transport", selectedTransport);
+      localStorage.setItem("number", transportNumber);
+
+      // Перенаправляем пользователя на success.html
+      window.location.href = "success.html";
+    });
   });
   </script>
 
