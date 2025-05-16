@@ -53,52 +53,31 @@
   </div>
 
   <script>
-    // Устанавливаем дату и время на момент загрузки страницы
-    const now = new Date();
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-    document.getElementById('datetime').textContent = now.toLocaleString('ru-RU', options);
-
-    // Извлекаем данные из localStorage
-    const transport = localStorage.getItem('transport');
-    const number = localStorage.getItem('number');
-
-    // Если данные есть, выводим их в нужном месте
-    if (transport && number) {
-      document.getElementById('paymentMethod').textContent = `Оплата по СБП · ${transport} ${number}`;
-    }
-
     window.addEventListener("DOMContentLoaded", () => {
-      const preloader = document.getElementById("successPreloader");
-      const transportDisplay = document.getElementById("transportDisplay");
-      const numberDisplay = document.getElementById("numberDisplay");
-
-      // Получаем данные из localStorage
-      const selectedTransport = localStorage.getItem("selectedTransport");
-      const number = localStorage.getItem("number");
-
-      // Если данные есть, отображаем их
-      if (selectedTransport) {
-        transportDisplay.textContent = selectedTransport;
-      } else {
-        transportDisplay.textContent = "Не выбран";
-      }
-
-      if (number) {
-        numberDisplay.textContent = number;
-      } else {
-        numberDisplay.textContent = "Не указан";
-      }
-  </script>
-  <script>   
-    // Скрытие прелоадера через 3 секунды после загрузки страницы
-    window.addEventListener("DOMContentLoaded", () => {
+      // Прелоадер
       const preloader = document.getElementById("successPreloader");
       setTimeout(() => {
         preloader.classList.add("hide");
-      }, 3000); // исчезает через 3 секунды
+      }, 3000);
+
+      // Установка даты и времени
+      const now = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+      document.getElementById('datetime').textContent = now.toLocaleString('ru-RU', options);
+
+      // Получение данных из localStorage
+      const transport = localStorage.getItem("selectedTransport");
+      const number = localStorage.getItem("number");
+
+      // Вывод в нужные элементы
+      document.getElementById("transportDisplay").textContent = transport || "Не выбран";
+      document.getElementById("numberDisplay").textContent = number || "Не указан";
+
+      if (transport && number) {
+        document.getElementById("paymentMethod").textContent = `Оплата по СБП · ${transport} ${number}`;
+      }
     });
   </script>
 
 </body>
 </html>
-
