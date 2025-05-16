@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Оплата успешна</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <div id="header">
+    <img src="BANK.png" alt="BANK Logo">
+  </div>
+
+  <h1>Оплата успешна!</h1>
+  <p>Сумма: <strong>29₽</strong></p>
+  <p>Ваш платеж был успешно обработан.</p>
+  
+  <button id="backButton">Вернуться на главную</button>
+
+  <script>
+    document.getElementById('backButton').addEventListener('click', () => {
+      window.location.href = 'index.html';  // Перенаправление обратно на главную страницу
+    });
+  </script>
+
+</body>
+</html>
