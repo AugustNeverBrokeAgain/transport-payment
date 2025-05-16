@@ -116,14 +116,16 @@ body {
 }
 
 /* Логотип */
+
 .logo-block {
-  position: absolute;
-  top: -50px;  /* Поднимем логотип */
+  display: flex;
+  justify-content: center;
+  margin: 10px 0 20px;
 }
 
 .logo {
-  width: 150px;  /* Увеличим размер логотипа */
-  height: 150px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   border: 4px solid #f1f1f1;
   object-fit: cover;
