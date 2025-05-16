@@ -218,9 +218,9 @@ body {
   margin-left: 5px;
 }
 
-/* Убираем отступ и увеличиваем картинку del.jpg в 4 раза */
+/* Картинка del.jpg — 150px и сдвиг вверх */
 .del-image {
-  width: 200px; /* увеличили размер в 4 раза */
+  width: 150px;
   height: auto;
-  margin-top: 0; /* убрали отступ */
+  margin-top: -20px;
 }
