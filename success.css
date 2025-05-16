@@ -29,18 +29,21 @@ body {
 .preloader-content {
   text-align: center;
   color: #1a1a1a;
+  display: flex;
+  flex-direction: column; /* Вертикальное расположение картинок */
+  align-items: center; /* Центрируем изображения */
 }
 
 /* Изображение BANK_loader2.png (сверху) */
 .top-loader {
-  width: 150px; /* Больший размер */
+  width: 200px; /* Увеличиваем размер */
   height: auto;
-  margin-bottom: 20px; /* Отступ по вертикали */
+  margin-bottom: 20px; /* Отступ между картинками */
 }
 
 /* Изображение load.gif (снизу) */
 .bottom-loader {
-  width: 120px; /* Размер для load.gif */
+  width: 150px; /* Размер для load.gif */
   height: auto;
 }
 
