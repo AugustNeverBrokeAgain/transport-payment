@@ -98,7 +98,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const loadingText = document.getElementById("loadingText");
 
   const phrases = [
-    "...",
+    "Почти готово...",
     "Обновляем балансы...",
     "Ваши данные в пути...",
     "Скоро всё загрузится..."
