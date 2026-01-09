@@ -30,9 +30,10 @@
     </div>
 
     <!-- Четвертый блок -->
-    <div class="block-4">
-      <p id="datetime"></p>
-    </div>
+   <div id="time-wrap">
+  <span id="fixed-datetime"></span>
+  <button id="reset-time" title="Сбросить время">⟳</button>
+</div>
 
     <!-- Пятый блок -->
     <div class="block-5">
@@ -78,19 +79,16 @@
       <p class="support-email">Служба поддержки <a href="mailto:fb@tbank.ru" class="support-email-link">fb@tbank.ru</a></p>
     </div>
     
-<div id="fixed-datetime"></div>
-<button id="reset-time">Сбросить время</button>
     
   </div>
 
 <script>
-const STORAGE_KEY = "pageLoadDateTimeMSK";
+const STORAGE_TIME = "fixedTimeMSK";
+const STORAGE_DAY  = "fixedTimeMSKDay";
 const TIMEZONE = "Europe/Moscow";
 
-function getMoscowNow() {
-  // получаем "сейчас" в Москве как корректную дату
-  const now = new Date();
-  const mskString = new Intl.DateTimeFormat("en-GB", {
+function getMoscowParts() {
+  const parts = new Intl.DateTimeFormat("en-GB", {
     timeZone: TIMEZONE,
     year: "numeric",
     month: "2-digit",
@@ -99,44 +97,59 @@ function getMoscowNow() {
     minute: "2-digit",
     second: "2-digit",
     hour12: false
-  }).format(now);
+  }).formatToParts(new Date());
 
-  // превращаем строку в Date (YYYY-MM-DD HH:mm:ss)
-  const [d, t] = mskString.split(", ");
-  const [day, month, year] = d.split("/");
-  return new Date(`${year}-${month}-${day}T${t}`);
+  const map = {};
+  parts.forEach(p => map[p.type] = p.value);
+  return map;
 }
 
-function formatDateTime(date) {
+function getMoscowTimestamp() {
+  const p = getMoscowParts();
+  return Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute, p.second);
+}
+
+function getMoscowDayKey() {
+  const p = getMoscowParts();
+  return `${p.year}-${p.month}-${p.day}`; // уникальный ключ дня по Москве
+}
+
+function formatMSK(ts) {
+  const d = new Date(ts);
   return new Intl.DateTimeFormat("ru-RU", {
     timeZone: TIMEZONE,
-    weekday: "long",
-    day: "numeric",
-    month: "long",
+    day: "2-digit",
+    month: "2-digit",
     year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit"
-  }).format(date);
+  }).format(d).replace(",", "");
 }
 
-function getStoredDate() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved) return new Date(saved);
+function getStoredTime() {
+  const savedTime = localStorage.getItem(STORAGE_TIME);
+  const savedDay  = localStorage.getItem(STORAGE_DAY);
+  const todayMSK  = getMoscowDayKey();
 
-  const now = getMoscowNow();
-  localStorage.setItem(STORAGE_KEY, now.toISOString());
-  return now;
+  if (savedTime && savedDay === todayMSK) {
+    return Number(savedTime);
+  }
+
+  const ts = getMoscowTimestamp();
+  localStorage.setItem(STORAGE_TIME, ts);
+  localStorage.setItem(STORAGE_DAY, todayMSK);
+  return ts;
 }
 
 function render() {
-  const date = getStoredDate();
-  document.getElementById("fixed-datetime").textContent = formatDateTime(date);
+  document.getElementById("fixed-datetime").textContent = formatMSK(getStoredTime());
 }
 
 document.getElementById("reset-time").addEventListener("click", () => {
-  const now = getMoscowNow();
-  localStorage.setItem(STORAGE_KEY, now.toISOString());
+  const ts = getMoscowTimestamp();
+  localStorage.setItem(STORAGE_TIME, ts);
+  localStorage.setItem(STORAGE_DAY, getMoscowDayKey());
   render();
 });
 
