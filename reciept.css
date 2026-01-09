@@ -180,6 +180,30 @@ body {
   text-decoration: none;
 }
 
+#time-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: -40px;
+  color: #999;
+  font-size: 14px;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+#reset-time {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  opacity: 0.4;
+  font-size: 14px;
+  padding: 0;
+  color: #999;
+}
+
+#reset-time:hover {
+  opacity: 0.8;
+}
+
 .support-email-link:hover {
   text-decoration: underline;
 }
