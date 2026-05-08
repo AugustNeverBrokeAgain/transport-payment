@@ -75,17 +75,19 @@
     </div>
   </div>
 
-  <script>
+ <script>
   window.addEventListener("DOMContentLoaded", () => {
     const preloader = document.getElementById("preloader");
+    const transportSelection = document.getElementById("transportSelection");
+    const scanContainer = document.getElementById("scanContainer");
+    const scanImage = document.getElementById("scanImage");
+    const confirmButton = document.getElementById('confirmButton');
 
     setTimeout(() => {
       preloader.classList.add("hide");
     }, 3000); // исчезает через 3 секунды
 
     // Обработчик нажатия на кнопку "Подтвердить"
-    const confirmButton = document.getElementById('confirmButton');
-    
     confirmButton.addEventListener('click', () => {
       // Получаем выбранный транспорт
       const selectedTransport = document.querySelector('input[name="transport"]:checked');
@@ -98,6 +100,14 @@
       if (transportValue && numberValue) {
         localStorage.setItem('selectedTransport', transportValue);
         localStorage.setItem('number', numberValue);
+        
+        // Скрываем форму выбора транспорта
+        transportSelection.style.display = 'none';
+        
+        // Показываем контейнер со сканером и картинку plata.png
+        scanContainer.style.display = 'block';
+        scanImage.style.display = 'block';
+
         alert(`Данные сохранены: Транспорт - ${transportValue}, Номер - ${numberValue}`);
       } else {
         alert("Пожалуйста, выберите транспорт и введите номер.");
