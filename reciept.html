@@ -83,77 +83,44 @@
   </div>
 
 <script>
-const STORAGE_TIME = "fixedTimeMSK";
-const STORAGE_DAY  = "fixedTimeMSKDay";
+// Изменим константу часового пояса
 const TIMEZONE = "Europe/Moscow";
 
-function getMoscowParts() {
-  const parts = new Intl.DateTimeFormat("en-GB", {
-    timeZone: TIMEZONE,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: false
-  }).formatToParts(new Date());
-
-  const map = {};
-  parts.forEach(p => map[p.type] = p.value);
-  return map;
+function getMoscowTime() {
+    // Получаем текущее время в UTC
+    const now = new Date();
+    
+    // Вычисляем разницу между локальным временем и UTC
+    const utcOffset = now.getTimezoneOffset() / 60; // в часах
+    
+    // Корректируем время для MSK (UTC+3)
+    const mskTime = new Date(now.getTime() - (utcOffset + 3) * 60 * 60 * 1000);
+    
+    return mskTime;
 }
 
-function getMoscowTimestamp() {
-  const p = getMoscowParts();
-  return Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute, p.second);
-}
-
-function getMoscowDayKey() {
-  const p = getMoscowParts();
-  return `${p.year}-${p.month}-${p.day}`; // уникальный ключ дня по Москве
-}
-
-function formatMSK(ts) {
-  const d = new Date(ts);
-  return new Intl.DateTimeFormat("ru-RU", {
-    timeZone: TIMEZONE,
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit"
-  }).format(d).replace(",", "");
-}
-
-function getStoredTime() {
-  const savedTime = localStorage.getItem(STORAGE_TIME);
-  const savedDay  = localStorage.getItem(STORAGE_DAY);
-  const todayMSK  = getMoscowDayKey();
-
-  if (savedTime && savedDay === todayMSK) {
-    return Number(savedTime);
-  }
-
-  const ts = getMoscowTimestamp();
-  localStorage.setItem(STORAGE_TIME, ts);
-  localStorage.setItem(STORAGE_DAY, todayMSK);
-  return ts;
+function formatMSK(date) {
+    return new Intl.DateTimeFormat("ru-RU", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+    }).format(date);
 }
 
 function render() {
-  document.getElementById("fixed-datetime").textContent = formatMSK(getStoredTime());
+    const mskTime = getMoscowTime();
+    document.getElementById("fixed-datetime").textContent = formatMSK(mskTime);
 }
 
 document.getElementById("reset-time").addEventListener("click", () => {
-  const ts = getMoscowTimestamp();
-  localStorage.setItem(STORAGE_TIME, ts);
-  localStorage.setItem(STORAGE_DAY, getMoscowDayKey());
-  render();
+    render();
 });
 
 render();
+
 </script>
 
 </body>
