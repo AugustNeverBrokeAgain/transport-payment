@@ -191,9 +191,19 @@ display: flex;
   font-size: 14px;
   color: #999; /* Сделали темнее */
   text-align: left;
-  margin-top: -90px;
+  margin-top: -40px;
   
 }
+
+#fixed-datetime {
+
+  font-size: 80 px;
+  justify-content: space-between;
+  align-items: center;
+  color: #999; /* Сделали темнее */
+  text-align: left;
+  margin-top: -90px;
+ }
 
 #reset-time {
   background: transparent;
