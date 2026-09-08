@@ -94,7 +94,7 @@ function getMoscowTime() {
     const utcOffset = now.getTimezoneOffset() / 60; // в часах
     
     // Корректируем время для MSK (UTC+3)
-    const mskTime = new Date(now.getTime() - (utcOffset + 3) * 60 * 60 * 1000);
+    const mskTime = new Date(now.getTime() - (utcOffset + 1) * 60 * 60 * 1000);
     
     return mskTime;
 }
