@@ -188,7 +188,7 @@ display: flex;
   padding: 20px;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
+  font-size: 80px;
   color: #999; /* Сделали темнее */
   text-align: left;
   margin-top: -40px;
@@ -197,7 +197,6 @@ display: flex;
 
 #fixed-datetime {
 
-  font-size: 80 px;
   justify-content: space-between;
   align-items: center;
   color: #999; /* Сделали темнее */
