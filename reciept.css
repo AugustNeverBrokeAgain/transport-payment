@@ -76,7 +76,9 @@ body {
 
 /* Четвертый блок */
 .block-4 {
+  display: flex;
   padding: 40px;
+  justify-content: space-between;
 }
 
 #datetime {
